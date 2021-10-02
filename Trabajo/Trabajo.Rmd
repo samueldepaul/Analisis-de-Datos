@@ -1,0 +1,18 @@
+---
+title: "TRABAJO ANÁLISIS DE DATOS"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+(COPY PASTE DE UNA WEB RANDOM)
+
+La enfermedad de Parkinson es una enfermedad progresiva del sistema nervioso que afecta el movimiento. Los síntomas comienzan gradualmente. A veces, comienza con un temblor apenas perceptible en una sola mano. Los temblores son habituales, aunque la enfermedad también suele causar rigidez o disminución del movimiento.
+
+En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen cuando caminas. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que esta progresa con el tiempo.
+
+A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos podrían mejorar notablemente los síntomas. En ocasiones, el médico puede sugerir realizar una cirugía para regular determinadas zonas del cerebro y mejorar los síntomas.
+
