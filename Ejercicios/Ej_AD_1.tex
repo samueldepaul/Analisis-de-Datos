@@ -1,0 +1,395 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Ejercicios Tema 1. Primera Entrega.},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Ejercicios Tema 1. Primera Entrega.}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\textbf{\emph{Pau Vives, Harold Cruz, Samuel de Paúl}}
+
+\textbf{\emph{PARTE I}}
+
+\emph{1.Utiliza el operador \$ para acceder a los datos del tamaño de la
+población y almacenarlos como el objeto pop. Luego, use la función sort
+para redefinir pop para que esté en orden alfabético. Finalmente, usa el
+operador {[} para indicar el tamaño de población más pequeño.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Cargamos los datos:}
+\CommentTok{\#install.packages("dslabs")}
+\FunctionTok{library}\NormalTok{(dslabs)}
+\FunctionTok{data}\NormalTok{(murders)}
+\NormalTok{pop }\OtherTok{\textless{}{-}}\NormalTok{ murders}\SpecialCharTok{$}\NormalTok{population}
+
+\CommentTok{\#Ordenamos Alfabéticamente: (Supondremos que se refiere a crecientemente)}
+\NormalTok{pop2 }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(pop) }
+
+\CommentTok{\#Tamaño de población más pequeño:}
+\NormalTok{min\_pop }\OtherTok{\textless{}{-}}\NormalTok{pop2[}\DecValTok{1}\NormalTok{]}
+\NormalTok{min\_pop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 563626
+\end{verbatim}
+
+\emph{2.Ahora, en lugar del tamaño de población más pequeño, encuentra
+el índice de la entrada con el tamaño de población más pequeño.
+Sugerencia: use order en lugar de sort.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_ind\_pop }\OtherTok{=} \FunctionTok{order}\NormalTok{(pop)[}\DecValTok{1}\NormalTok{]}
+\NormalTok{min\_ind\_pop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 51
+\end{verbatim}
+
+\emph{3.Podemos realizar la misma operación que en el ejercicio anterior
+usando la función which.min. Escribe una línea de código que haga esto.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{min\_ind\_pop2 }\OtherTok{=} \FunctionTok{which.min}\NormalTok{(pop)}
+\NormalTok{min\_ind\_pop2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 51
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Vemos que coincide con el apartado anterior}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{4.Ahora sabemos cuán pequeño es el estado más pequeño y qué fila
+lo representa. ¿Qué estado es? Define una variable states para que sea
+los nombres de los estados del data frame murders. Reporta el nombre del
+estado con la población más pequeña.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Estado más pequeño:}
+\NormalTok{murders}\SpecialCharTok{$}\NormalTok{state[min\_ind\_pop]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Wyoming"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Definimos variable states}
+\NormalTok{states }\OtherTok{=}\NormalTok{ murders}\SpecialCharTok{$}\NormalTok{state}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{5.Puedes crear un data frame utilizando la función data.frame.
+Utiliza la función rank para determinar el rango de población de cada
+estado desde el menos poblado hasta el más poblado. Guarda estos rangos
+en un objeto llamado ranks. Luego, crea un data frame con el nombre del
+estado y su rango. Nombra el data frame my\_df.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ranks }\OtherTok{=} \FunctionTok{rank}\NormalTok{(pop)}
+\NormalTok{my\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{states =}\NormalTok{ states , }\AttributeTok{rank =}\NormalTok{ ranks)}
+\FunctionTok{head}\NormalTok{(my\_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       states rank
+## 1    Alabama   29
+## 2     Alaska    5
+## 3    Arizona   36
+## 4   Arkansas   20
+## 5 California   51
+## 6   Colorado   30
+\end{verbatim}
+
+\emph{6.Repite el ejercicio anterior, pero esta vez ordena my\_df para
+que los estados estén en orden de menos poblado a más poblado.
+Sugerencia: cree un objeto ind que almacene los índices necesarios para
+poner en orden los valores de la población. Luego, use el operador de
+corchete {[} para reordenar cada columna en el data frame.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ind }\OtherTok{=} \FunctionTok{order}\NormalTok{(pop)}
+\NormalTok{my\_df2 }\OtherTok{\textless{}{-}}\NormalTok{ my\_df[ind,]}
+\FunctionTok{head}\NormalTok{(my\_df2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  states rank
+## 51              Wyoming    1
+## 9  District of Columbia    2
+## 46              Vermont    3
+## 35         North Dakota    4
+## 2                Alaska    5
+## 42         South Dakota    6
+\end{verbatim}
+
+\emph{7.El vector na\_example representa una serie de conteos. La
+función is.na devuelve un vector lógico que nos dice qué entradas son
+NA. Asigna este vector lógico a un objeto llamado ind y determina
+cuántos NAs tiene na\_example.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"na\_example"}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(na\_example)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  int [1:1000] 2 1 3 2 1 3 1 4 3 2 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ind }\OtherTok{=} \FunctionTok{is.na}\NormalTok{(na\_example)}
+\CommentTok{\#total = sum(ind)}
+\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(ind }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 145
+\end{verbatim}
+
+\emph{8.Ahora calcula nuevamente el promedio, pero solo para las
+entradas que no son NA. Sugerencia: recuerde el operador !}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ind\_new }\OtherTok{=}\NormalTok{ na\_example[ind}\SpecialCharTok{!=}\ConstantTok{TRUE}\NormalTok{]}
+\FunctionTok{mean}\NormalTok{(ind\_new)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.301754
+\end{verbatim}
+
+\textbf{\emph{PARTE II:}}
+
+\emph{1.Anteriormente, creamos este data frame:}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{35}\NormalTok{, }\DecValTok{88}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{84}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{city }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Beijing"}\NormalTok{, }\StringTok{"Lagos"}\NormalTok{, }\StringTok{"Paris"}\NormalTok{, }\StringTok{"Rio de Janeiro"}\NormalTok{,}\StringTok{"San Juan"}\NormalTok{, }\StringTok{"Toronto"}\NormalTok{)}
+\NormalTok{city\_temps }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{name =}\NormalTok{ city, }\AttributeTok{temperature =}\NormalTok{ temp)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Vuelve a crear el data frame utilizando el código anterior, pero
+agrega una línea que convierta la temperatura de Fahrenheit a Celsius.
+La conversión es \(C=59×(F−32)\) .}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{temp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{35}\NormalTok{, }\DecValTok{88}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{84}\NormalTok{, }\DecValTok{81}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{celsius }\OtherTok{\textless{}{-}} \DecValTok{5}\SpecialCharTok{/}\DecValTok{9} \SpecialCharTok{*}\NormalTok{ (temp}\DecValTok{{-}32}\NormalTok{)}
+\NormalTok{city }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Beijing"}\NormalTok{, }\StringTok{"Lagos"}\NormalTok{, }\StringTok{"Paris"}\NormalTok{, }\StringTok{"Rio de Janeiro"}\NormalTok{,}\StringTok{"San Juan"}\NormalTok{, }\StringTok{"Toronto"}\NormalTok{)}
+\NormalTok{city\_temps }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{name =}\NormalTok{ city, }\AttributeTok{temperature =}\NormalTok{ celsius)}
+\FunctionTok{head}\NormalTok{(city\_temps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             name temperature
+## 1        Beijing    1.666667
+## 2          Lagos   31.111111
+## 3          Paris    5.555556
+## 4 Rio de Janeiro   28.888889
+## 5       San Juan   27.222222
+## 6        Toronto   -1.111111
+\end{verbatim}
+
+\emph{2.¿Cuál es la siguiente suma \(1+1/2^2+1/3^2+…1/100^2\)? Ayuda:
+gracias a Euler, sabemos que debería estar cerca de \(π^2/6\).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Planteamos dos formas diferentes de resolver el problema.}
+\CommentTok{\#Primera manera:}
+\NormalTok{vec }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{)}
+\NormalTok{sum1 }\OtherTok{=} \FunctionTok{sum}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\NormalTok{(vec}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{sum1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.634984
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(pi}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\DecValTok{6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.644934
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Segunda manera:}
+\NormalTok{sum2 }\OtherTok{=} \DecValTok{0}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{  sum2 }\OtherTok{=}\NormalTok{ sum2 }\SpecialCharTok{+} \DecValTok{1}\SpecialCharTok{/}\NormalTok{(i}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{sum2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.634984
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(pi}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\DecValTok{6}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.644934
+\end{verbatim}
+
+\emph{3.Calcula la tasa de asesinatos por cada 100000 habitantes para
+cada estado y almacénela en el objeto murder\_rate. Luego, calcula la
+tasa promedio de asesinatos para EE.UU. con la función mean. ¿Cuánto
+vale la media?}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{murder\_rate }\OtherTok{\textless{}{-}}\NormalTok{ murders}\SpecialCharTok{$}\NormalTok{total }\SpecialCharTok{/}\NormalTok{ murders}\SpecialCharTok{$}\NormalTok{population }\SpecialCharTok{*} \DecValTok{100000}
+\NormalTok{murder\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(murder\_rate)}
+\NormalTok{murder\_mean}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.779125
+\end{verbatim}
+
+\end{document}

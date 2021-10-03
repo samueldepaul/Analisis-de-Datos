@@ -1,18 +1,47 @@
 ---
-title: "TRABAJO ANÁLISIS DE DATOS"
+title: "Portada Bien Fachera"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+\maketitle
+\newpage
+# Contextualización, objetivos y descripción de los datos
 
-## R Markdown
-(COPY PASTE DE UNA WEB RANDOM)
+La enfermedad de Parkinson es una enfermedad neurodegenerativa crónica caracterizada por los temblores, rigidez y disminución de la mobilidad. Esta enfermedad se debe a un déficit en la secreción de dopamina, hormona liberada por las terminaciones nerviosas de la sustancia negra. A veces comienza con un temblor apenas perceptible en una sola mano. En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen al caminar. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que la enfermedad progresa con el tiempo.
 
-La enfermedad de Parkinson es una enfermedad progresiva del sistema nervioso que afecta el movimiento. Los síntomas comienzan gradualmente. A veces, comienza con un temblor apenas perceptible en una sola mano. Los temblores son habituales, aunque la enfermedad también suele causar rigidez o disminución del movimiento.
+A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos pueden reducir o atenuar notablemente los síntomas. En ocasiones, el médico puede sugerir realizar una cirugía para regular determinadas zonas del cerebro. 
 
-En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen cuando caminas. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que esta progresa con el tiempo.
+Esta enfermedad representa el segundo trastorno neurodegenerativo por su frecuencia, sólo por detrás del Alzheimer. Está extendida por todo el mundo y puede desarrollarse en ambos sexos, afectando a entre un 1% a un 2% de la población mayor de 60 años.
 
-A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos podrían mejorar notablemente los síntomas. En ocasiones, el médico puede sugerir realizar una cirugía para regular determinadas zonas del cerebro y mejorar los síntomas.
+\begin{center}
+    \includegraphics[scale = 0.5]{spiral_healthy.png}
+    \includegraphics[scale = 0.5]{spiral_parkinson.png}
+\end{center}
+
+Hemos obtenido el dataset con el que vamos a trabajar de la web Kaggle. Los datos provienen originalmente de un paper publicado a principios de 2017 en nature.com, que puede consultarse en el enlace https://www.nature.com/articles/s41598-017-00047-5.pdf
+
+El conjunto de datos incluye 30 pacientes con enfermedad de Parkinson (EP) temprana no tratada, 50 pacientes con trastorno de conducta del sueño REM (RBD), que tienen un alto riesgo de desarrollar la enfermedad de Parkinson, y 50 controles sanos (HC).
+
+Todos los pacientes fueron evaluados clínicamente por un neurólogo profesional con experiencia en trastornos del movimiento. Todos los sujetos fueron examinados durante una sola sesión con un especialista del habla. Éstos realizaron la lectura de un texto estandarizado, fonéticamente equilibrado de 80 palabras y monólogos sobre sus intereses, trabajo, familia o actividades actuales durante aproximadamente 90 segundos. Las características del habla fueron analizadas automáticamente por Jan Hlavnička et al.
+
+Con el análisis de éste conjunto de datos se pretende:
+\begin{itemize}
+  \item Hallar biomarcadores de la enfermedad de Parkinson en los distintos pacientes estudiados
+  \item Clasificar a los pacientes en grupos de riesgo 
+  \item Distinguir qué rasgos están más estrechamente relacionados con el desarrollo del Parkinson
+  \item ...
+\end{itemize}
+
+
+[\textbf{FALTA HABLAR DE LAS VARIABLES OBSERVACIONES Y TAL}]
+
+
+
+
+
+
+
 

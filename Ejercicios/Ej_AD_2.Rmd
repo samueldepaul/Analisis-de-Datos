@@ -1,0 +1,115 @@
+---
+title: "Ejercicios Tema 1. Segunda Entrega."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+***Pau Vives, Harold Cruz, Samuel de Paúl***
+
+___PARTE I___
+
+*1.Calcula la tasa de asesinatos por cada 100000 habitantes para cada estado y almacénela en un objeto llamado murder_rate. Luego, usa operadores lógicos para crear un vector lógico llamado low que nos dice qué entradas de murder_rate son inferiores a 1.*
+```{r, echo=FALSE}
+#Cargamos los datos:
+#install.packages("dslabs")
+library(dslabs)
+```
+
+```{r}
+#Importamos los datos
+data(murders)
+
+#Calculamos la tasa
+murder_rate <- murders$total / murders$population * 100000
+
+#entradas inferiores a 1:
+low <- murder_rate < 1
+```
+
+*2.Ahora usa los resultados del ejercicio anterior y la función which para determinar los índices de murder_rate asociados con valores inferiores a 1.*
+```{r}
+#Directamente buscamos en qué posiciones están los TRUE del vector lógico del ejercicio anterior
+ind = which(low == TRUE)
+ind
+```
+
+*3.Usa los resultados del ejercicio anterior para indicar los nombres de los estados con tasas de asesinatos inferiores a 1.*
+```{r}
+#Escogemos de la columna de los estados aquellos dados por la lista de índices del ejercicio anterior
+murders$state[ind]
+```
+
+*4.Ahora extiende el código de los ejercicios 2 y 3 para indicar los estados del noreste con tasas de asesinatos inferiores a 1. Sugerencia: use el vector lógico predefinido low y el operador lógico &.*
+```{r}
+murders$state[low & murders$region == "Northeast"]
+```
+
+*5.En un ejercicio anterior, calculamos la tasa de asesinatos para cada estado y el promedio de estos números. ¿Cuántos estados están por debajo del promedio?.*
+```{r}
+#Calculamos la tasa media
+murder_mean <- mean(murder_rate)
+murder_mean
+
+#Creamos un vector lógico que nos dice, de las entradas de murder_rate, cuáles están por debajo de la tasa media, y utilizamos sum para ver de cuantos estados se trata
+below_mean <- murder_rate<murder_mean
+sum(below_mean)
+```
+
+*6.Usa la función match para identificar los estados con abreviaturas AK, MI e IA. Sugerencia: comienza definiendo un índice de las entradas de murders$abb que coinciden con las tres abreviaturas. Entonces usa el operador [ para extraer los estados.*
+```{r}
+ind <- match(c("AK", "MI", "IA"), murders$abb)
+murders$state[ind]
+```
+
+*7.Utiliza el operador %in% para crear un vector lógico que responda a la pregunta: ¿cuáles de las siguientes son abreviaturas reales: MA, ME, MI, MO, MU?*
+```{r}
+#Creamos el vector lógico como se indica tomamos los índices correspondientes
+abbs <- c("MA","ME","MI","MO","MU")
+ind = abbs %in% murders$abb 
+abbs[ind]
+
+#De hecho podemos reutilizar la expresión del ejercicio anterior para saber a qué estados corresponden
+murders$state[match(abbs[ind], murders$abb)]
+
+```
+
+*8.Extiende el código que usaste en el ejercicio 7 para averiguar la única entrada que no es una abreviatura real. Sugerencia: usa el operador !, que convierte FALSE a TRUE y viceversa, y entonces which para obtener un índice.*
+```{r}
+abbs <- c("MA","ME","MI","MO","MU")
+ind = abbs %in% murders$abb 
+which(!ind)
+```
+
+___PARTE II:___
+
+*1.Hicimos un gráfico de asesinatos totales versus población y notamos una fuerte relación. No es sorprendente que los estados con poblaciones más grandes hayan tenido más asesinatos.:*
+```{r}
+population_in_millions <- murders$population/10^6
+total_gun_murders <- murders$total
+plot(population_in_millions, total_gun_murders)
+```
+*Recuerda que muchos estados tienen poblaciones inferiores a 5 millones y están agrupados. Podemos obtener más información al hacer este gráfico en la escala logarítmica. Transforma las variables usando la transformación log10 y luego crea un gráfico de los resultados.*
+```{r}
+plot(log10(population_in_millions), log10(total_gun_murders))
+#####NO SÉ SI DEBERÍAMOS APLICARLA SOLO A TOTAL GUN MURDERS O A LAS DOS
+```
+
+*2.Crea un histograma de las poblaciones estatales.*
+```{r}
+hist(population_in_millions)
+```
+
+*3.Genere diagramas de caja de las poblaciones estatales por región.*
+```{r}
+#Añadimos la columna de población en millones al dataset
+murders$population_mill <- population_in_millions
+
+#Representamos el boxplot
+boxplot(population_mill~region, data = murders)
+```
+
+
+
+
