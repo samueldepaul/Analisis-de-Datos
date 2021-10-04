@@ -8,6 +8,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 \maketitle
 \newpage
+```{r, echo=FALSE}
+#Aquí cargamos las librerías que usaremos
+library(knitr)
+#install.packages("magick")
+library(magick)
+```
+
+\newpage
 # Contextualización, objetivos y descripción de los datos
 
 La enfermedad de Parkinson es una enfermedad neurodegenerativa crónica caracterizada por los temblores, rigidez y disminución de la mobilidad. Esta enfermedad se debe a un déficit en la secreción de dopamina, hormona liberada por las terminaciones nerviosas de la sustancia negra. A veces comienza con un temblor apenas perceptible en una sola mano. En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen al caminar. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que la enfermedad progresa con el tiempo.
@@ -16,10 +24,21 @@ A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos pueden
 
 Esta enfermedad representa el segundo trastorno neurodegenerativo por su frecuencia, sólo por detrás del Alzheimer. Está extendida por todo el mundo y puede desarrollarse en ambos sexos, afectando a entre un 1% a un 2% de la población mayor de 60 años.
 
-\begin{center}
-    \includegraphics[scale = 0.5]{spiral_healthy.png}
-    \includegraphics[scale = 0.5]{spiral_parkinson.png}
-\end{center}
+```{r image_grobs, fig.show = "hold", out.width = "40%", fig.align = "center", fig.cap="\\label{fig:figs}Test de la espiral en pacientes sanos (izquierda) y pacientes con Parkinson (derecha)",echo=FALSE}
+
+img1 <- image_read("spiral_healthy.png")
+img1 <- image_border(img1, "white", "100x20")
+
+img2 <- image_read("spiral_parkinson.png")
+img2 <- image_border(img2, "white", "100x20")
+
+image_write(img1, "img1.png")
+image_write(img2, "img2.png")
+
+knitr::include_graphics(c("img1.png","img2.png"))
+
+```
+
 
 Hemos obtenido el dataset con el que vamos a trabajar de la web Kaggle. Los datos provienen originalmente de un paper publicado a principios de 2017 en nature.com, que puede consultarse en el enlace https://www.nature.com/articles/s41598-017-00047-5.pdf
 
