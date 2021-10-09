@@ -103,9 +103,12 @@ plot(log10(population_in_millions), log10(total_gun_murders),
 ```
 \newpage
 *2.Crea un histograma de las poblaciones estatales.*
-```{r, out.width = "70%", fig.align = "center"}
+```{r, out.width = "65%", fig.align = "center"}
 hist(population_in_millions, col = "blue",
 main = "Histograma de Poblaciones Estatales", xlab = "Población (mill.)", ylab = "Frecuencia")
+
+
+#Si quisiéramos representar la población de cada estado utilizaríamos un barplot
 ```
 
 *3.Genere diagramas de caja de las poblaciones estatales por región.*

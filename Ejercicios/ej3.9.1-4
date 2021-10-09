@@ -1,0 +1,29 @@
+---
+title: "ej3.9.1-4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo = FALSE, message= FALSE}
+library(tidyverse)
+```
+
+
+**4.What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?**
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+
+#El gráfico muestra que una correlaciñon dierecta entre las variables ya que al aumentar una, aumenta la otra, La relación no es completamente lineal pero se ajustaría bastante bien a un modelo de regresiñon lineal.
+
+#coord_fixed() fija el ratio entre la representación de datos en cada uno de los ejes. El ratio predeterminado es 1, lo que significa que una unidad en el eje x es igual de larga que una unidad en el eje y. Esto es importante porque al modificar el ratio, gráficamente se modificaría la inclinación de la nube de puntos, que intuitivamente indicaría una relación más fuerte o más débil entre las variables, lo que no sería correcto.
+
+#geom_ablibne() es una función que dibuja líneas de referencia. En este caso no le hemos introducido ningún parámetro así que toma, por defecto intercept = 0 (ordenada al orígen) y slope = 1 (pendiente).
+
+```
+

@@ -7,12 +7,12 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 \maketitle
-\newpage
-```{r, echo=FALSE}
+```{r, echo=FALSE, message = FALSE}
 #Aquí cargamos las librerías que usaremos
+library(tidyverse)
 library(knitr)
-#install.packages("magick")
-library(magick)
+library(magick) #Para la visualización de imágenes
+library(dplyr)
 ```
 
 \newpage
@@ -24,7 +24,7 @@ A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos pueden
 
 Esta enfermedad representa el segundo trastorno neurodegenerativo por su frecuencia, sólo por detrás del Alzheimer. Está extendida por todo el mundo y puede desarrollarse en ambos sexos, afectando a entre un 1% a un 2% de la población mayor de 60 años.
 
-```{r image_grobs, fig.show = "hold", out.width = "40%", fig.align = "center", fig.cap="\\label{fig:figs}Test de la espiral en pacientes sanos (izquierda) y pacientes con Parkinson (derecha)",echo=FALSE}
+```{r image_grobs, fig.show = "hold", out.width = "35%", fig.align = "center", fig.cap="\\label{fig:figs}Test de la espiral en pacientes sanos (izquierda) y pacientes con Parkinson (derecha)",echo=FALSE}
 
 img1 <- image_read("spiral_healthy.png")
 img1 <- image_border(img1, "white", "100x20")
@@ -40,7 +40,9 @@ knitr::include_graphics(c("img1.png","img2.png"))
 ```
 
 
-Hemos obtenido el dataset con el que vamos a trabajar de la web Kaggle. Los datos provienen originalmente de un paper publicado a principios de 2017 en nature.com, que puede consultarse en el enlace https://www.nature.com/articles/s41598-017-00047-5.pdf
+Hemos obtenido el dataset con el que vamos a trabajar de la web Kaggle, bajo el título "Early Biomarkers of Parkinson's Disease", que podría traducirse como "Biomarcadores prematuros de la enfermedad de Parkinson" Los datos provienen originalmente de un paper publicado a principios de 2017 en nature.com, que puede consultarse en el enlace https://www.nature.com/articles/s41598-017-00047-5.pdf
+
+Hemos elegido este tema porque nos parece que la investigación científica y médica es una área que puede beneficiarse mucho del análisis de datos ya que abunda la indormación porque se realizan todo tipo de pruebas y diagnósticos a los pacientes. Además, estudios de este tipo están enfocados en mejorar la calidad de vida de los pacientes afectados por la enfermedad, y claramente nos parece que merece la pena trabajar de cara a éste objetivo.
 
 El conjunto de datos incluye 30 pacientes con enfermedad de Parkinson (EP) temprana no tratada, 50 pacientes con trastorno de conducta del sueño REM (RBD), que tienen un alto riesgo de desarrollar la enfermedad de Parkinson, y 50 controles sanos (HC).
 
@@ -51,12 +53,52 @@ Con el análisis de éste conjunto de datos se pretende:
   \item Hallar biomarcadores de la enfermedad de Parkinson en los distintos pacientes estudiados
   \item Clasificar a los pacientes en grupos de riesgo 
   \item Distinguir qué rasgos están más estrechamente relacionados con el desarrollo del Parkinson
-  \item ...
 \end{itemize}
 
+\newpage
+# Descripción de los datos
 
-[\textbf{FALTA HABLAR DE LAS VARIABLES OBSERVACIONES Y TAL}]
+```{r}
+data <- read.csv("dataset.csv")
+data <- as_tibble(data)
+```
+En el dataset original las variables tienen nombres muy largos y engorrosos por lo que, primero las renombrado y a continuación detallaremos la información que aporta cada una:
+```{r, echo = FALSE}
+names(data)[1] <- "code"
+names(data)[2] <- "age"
+names(data)[3] <- "gender"
+names(data)[4] <- "history"
+names(data)[5] <- "onset"
+names(data)[6] <- "duration"
+names(data)[7] <- "antidepr"
+names(data)[8] <- "antipark"
+names(data)[9] <- "antipsych"
+names(data)[10] <- "benzodiaz"
+```
 
+
+El dataset consta de las siguientes variables para cada una de las observaciones:
+
+
+**code**: (???) Simplemente Identificación de cadad paciente.
+
+**age**: (numérica) Edad en años. 
+
+**gender:** (categórica con 2 niveles): Género del paciente.
+
+**history**: (categórica de 2 niveles) Historial familiar de Parkinson.
+
+**Age of disease onset**: (numérica) Edad del paciente al inicio de la enfermedad, en años.
+
+**duration**: (numérica) Duración de la enfermedad desde los primeros síntomas, en años.
+
+**antidepr**: (Categórica con 10 niveles): Terapia con Antidepresivos del paciente, en caso afirmativo se especifica cuál.
+
+**antipark**: (Categórica con 1 nivel): Medicación antiparkinsoniana del paciente.
+
+**antipsych**: (Categórica con 1 nivel): Medicación antipsicótica del paciente.
+
+**benzodiaz**: (Categórica con 4 niveles): Medicación con benzodiazepinas del paciente.
 
 
 
