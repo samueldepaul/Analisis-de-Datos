@@ -18,7 +18,7 @@ library(dplyr)
 \newpage
 # Contextualización, objetivos y descripción de los datos
 
-La enfermedad de Parkinson es una enfermedad neurodegenerativa crónica caracterizada por los temblores, rigidez y disminución de la mobilidad. Esta enfermedad se debe a un déficit en la secreción de dopamina, hormona liberada por las terminaciones nerviosas de la sustancia negra. A veces comienza con un temblor apenas perceptible en una sola mano. En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen al caminar. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que la enfermedad progresa con el tiempo.
+La enfermedad de Parkinson es un transtorno neurodegenerativo crónico caracterizado por los temblores, rigidez y disminución de la mobilidad. Esta enfermedad se debe a un déficit en la secreción de dopamina, hormona liberada por las terminaciones nerviosas de la sustancia negra. A veces comienza con un temblor apenas perceptible en una sola mano. En las etapas iniciales de la enfermedad de Parkinson, el rostro puede tener una expresión leve o nula. Es posible que los brazos no se balanceen al caminar. El habla puede volverse suave o incomprensible. Los síntomas de la enfermedad de Parkinson se agravan a medida que la enfermedad progresa con el tiempo.
 
 A pesar de que la enfermedad de Parkinson no tiene cura, los medicamentos pueden reducir o atenuar notablemente los síntomas. En ocasiones, el médico puede sugerir realizar una cirugía para regular determinadas zonas del cerebro. 
 
@@ -42,7 +42,7 @@ knitr::include_graphics(c("img1.png","img2.png"))
 
 Hemos obtenido el dataset con el que vamos a trabajar de la web Kaggle, bajo el título "Early Biomarkers of Parkinson's Disease", que podría traducirse como "Biomarcadores prematuros de la enfermedad de Parkinson" Los datos provienen originalmente de un paper publicado a principios de 2017 en nature.com, que puede consultarse en el enlace https://www.nature.com/articles/s41598-017-00047-5.pdf
 
-Hemos elegido este tema porque nos parece que la investigación científica y médica es una área que puede beneficiarse mucho del análisis de datos ya que abunda la indormación porque se realizan todo tipo de pruebas y diagnósticos a los pacientes. Además, estudios de este tipo están enfocados en mejorar la calidad de vida de los pacientes afectados por la enfermedad, y claramente nos parece que merece la pena trabajar de cara a éste objetivo.
+Hemos elegido este tema porque nos parece que la investigación científica y médica es una área que se beneficia mucho del análisis de datos ya que abunda la información puesto que se realizan todo tipo de pruebas y diagnósticos a los pacientes. Además, estudios de este tipo están enfocados en mejorar la calidad de vida de los pacientes afectados por la enfermedad, y claramente nos parece que merece la pena trabajar de cara a éste objetivo.
 
 El conjunto de datos incluye 30 pacientes con enfermedad de Parkinson (EP) temprana no tratada, 50 pacientes con trastorno de conducta del sueño REM (RBD), que tienen un alto riesgo de desarrollar la enfermedad de Parkinson, y 50 controles sanos (HC).
 
@@ -61,8 +61,9 @@ Con el análisis de éste conjunto de datos se pretende:
 ```{r}
 data <- read.csv("dataset.csv")
 data <- as_tibble(data)
+str(data)
 ```
-En el dataset original las variables tienen nombres muy largos y engorrosos por lo que, primero las renombrado y a continuación detallaremos la información que aporta cada una:
+Como podemos ver, en el dataset original las variables tienen nombres muy largos y engorrosos por lo que primero las renombraremos, para poder trabajar con ellas con mas facilidad, y a continuación detallaremos la información que aporta cada una:
 ```{r, echo = FALSE}
 names(data)[1] <- "code"
 names(data)[2] <- "age"
@@ -70,39 +71,117 @@ names(data)[3] <- "gender"
 names(data)[4] <- "history"
 names(data)[5] <- "onset"
 names(data)[6] <- "duration"
-names(data)[7] <- "antidepr"
-names(data)[8] <- "antipark"
-names(data)[9] <- "antipsych"
-names(data)[10] <- "benzodiaz"
+names(data)[7] <- "antidepressant"
+names(data)[8] <- "antiparkinsonian"
+names(data)[9] <- "antipsychotic"
+names(data)[10] <- "benzodiazepine"
+names(data)[11] <- "levodopa"
+names(data)[12] <- "clonazepam"
+names(data)[15] <- "X18-speech"
+names(data)[16] <- "X19-expression"
+names(data)[17] <- "X20-head"
+names(data)[18] <- "X20-RUE"
+names(data)[19] <- "X20-LUE"
+names(data)[20] <- "X20-RLE"
+names(data)[21] <- "X20-LLE"
+names(data)[22] <- "X21-RUE"
+names(data)[23] <- "X21-LUE"
+names(data)[24] <- "X22-neck"
+names(data)[25] <- "X22-RUE"
+names(data)[26] <- "X22-LUE"
+names(data)[27] <- "X22-RLE"
+names(data)[28] <- "X22-LLE"
+names(data)[29] <- "X23-RUE"
+names(data)[30] <- "X23-LUE"
+names(data)[31] <- "X24-RUE"
+names(data)[32] <- "X24-LUE"
+names(data)[33] <- "X25-RUE"
+names(data)[34] <- "X25-LUE"
+names(data)[35] <- "X26-RLE"
+names(data)[36] <- "X26-LLE"
+names(data)[37] <- "X27"
+names(data)[38] <- "X28"
+names(data)[39] <- "X29"
+names(data)[40] <- "X30"
+names(data)[41] <- "X31"
+names(data)[42] <- "EST"
+names(data)[43] <- "RST"
+names(data)[44] <- "AST"
+names(data)[45] <- "DPI"
+names(data)[46] <- "DVI"
+names(data)[47] <- "GVI"
+names(data)[48] <- "DUS"
+names(data)[49] <- "DUF"
+names(data)[50] <- "RLR"
+names(data)[51] <- "PIR"
+names(data)[52] <- "RSR"
+names(data)[53] <- "LSE"
+
+names(data)[54] <- "EST"
+names(data)[55] <- "RST"
+names(data)[56] <- "AST"
+names(data)[57] <- "DPI"
+names(data)[58] <- "DVI"
+names(data)[59] <- "GVI"
+names(data)[60] <- "DUS"
+names(data)[61] <- "DUF"
+names(data)[62] <- "RLR"
+names(data)[63] <- "PIR"
+names(data)[64] <- "RSR"
+names(data)[65] <- "LSE"
+summary(data$levodopa)
 ```
 
 
 El dataset consta de las siguientes variables para cada una de las observaciones:
 
 
-**code**: (???) Simplemente Identificación de cadad paciente.
+**code**: (carácter) Contiene un código de identificación para cada paciente.
 
-**age**: (numérica) Edad en años. 
+**age**: (numérica) Edad de cada paciente en años. 
 
-**gender:** (categórica con 2 niveles): Género del paciente.
+**gender:** (categórica con 2 niveles) Género del paciente.
 
-**history**: (categórica de 2 niveles) Historial familiar de Parkinson.
+**history**: (categórica de 2 niveles) Variable que indica si el paciente tiene familiares con Parkinson.
 
-**Age of disease onset**: (numérica) Edad del paciente al inicio de la enfermedad, en años.
+**onset**: (numérica) Edad del paciente al inicio de la enfermedad, en años.
 
 **duration**: (numérica) Duración de la enfermedad desde los primeros síntomas, en años.
 
-**antidepr**: (Categórica con 10 niveles): Terapia con Antidepresivos del paciente, en caso afirmativo se especifica cuál.
+**antidepr**: (categórica con 10 niveles): Terapia con Antidepresivos del paciente, en caso afirmativo se especifica cuál.
 
-**antipark**: (Categórica con 1 nivel): Medicación antiparkinsoniana del paciente.
+**antipark**: (categórica con 1 nivel): Medicación antiparkinsoniana del paciente.
 
-**antipsych**: (Categórica con 1 nivel): Medicación antipsicótica del paciente.
+**antipsych**: (categórica con 1 nivel): Medicación antipsicótica del paciente.
 
-**benzodiaz**: (Categórica con 4 niveles): Medicación con benzodiazepinas del paciente.
+**benzodiazepine**: (Categórica con 4 niveles): Medicación con benzodiazepinas del paciente, en caso afirmativo se especifica cuál.
 
+**levodopa**: (numérica) Cantidad en miligramos del consumo de Levodopa diario del paciente.
 
+**clonazepam**: (numérica) Cantidad en miligramos del consumo de Clonazepam diario del paciente.
 
+*Mediciones acústicas:*
 
+**EST**: (numérica) Mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. (este valor se haciendo uso de la entropia de Shannon)
 
+**RST**: (numérica) Mide la velocidad de elocución respecto a la calidad de ?¿?¿?¿ 
 
+**AST**: (numérica) Mide la aceleración o deceleración en la velocidad del habla.
 
+**DPI**: (numérica) Mide la media de la duración de los intérvalos de pausas de cada paciente.
+
+**DVI**: (numérica) Mide la duración media de los intérvalos de voz.
+
+**GVI**: (numérica) Separación media entre intérvalos de voz.
+
+**DUS**: (numérica)
+
+**DUF**: (numérica)
+
+**RLR**: (numérica)
+
+**PIR**: (numérica)
+
+**RSR**: (numérica)
+
+**LRE**: (numérica)
