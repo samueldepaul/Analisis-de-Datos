@@ -71,8 +71,8 @@ names(data)[9] <- "antipsychotic"
 names(data)[10] <- "benzodiazepine"
 names(data)[11] <- "levodopa"
 names(data)[12] <- "clonazepam"
-names(data)[15] <- "X18-speech"
-names(data)[16] <- "X19-expression"
+names(data)[15] <- "X18"
+names(data)[16] <- "X19"
 names(data)[17] <- "X20-head"
 names(data)[18] <- "X20-RUE"
 names(data)[19] <- "X20-LUE"
@@ -110,7 +110,6 @@ names(data)[50] <- "RLR"
 names(data)[51] <- "PIR"
 names(data)[52] <- "RSR"
 names(data)[53] <- "LSE"
-
 names(data)[54] <- "EST-M"
 names(data)[55] <- "RST-M"
 names(data)[56] <- "AST-M"
@@ -123,12 +122,10 @@ names(data)[62] <- "RLR-M"
 names(data)[63] <- "PIR-M"
 names(data)[64] <- "RSR-M"
 names(data)[65] <- "LSE-M"
-#summary(data$levodopa)
 ```
 
 
 El dataset consta de las siguientes variables para cada una de las observaciones:
-
 
 **code**: (carácter) Contiene un código de identificación para cada paciente.
 
@@ -154,8 +151,49 @@ El dataset consta de las siguientes variables para cada una de las observaciones
 
 **clonazepam**: (numérica) Cantidad en miligramos del consumo de Clonazepam diario del paciente.
 
-$\Longrightarrow$ *Mediciones acústicas:*
+### Evaluación Cognitiva:
 
+Las siguientes variables son los resultados de unas pruebas realizadas exclusivamente a los sujetos que no están completamente sanos, relacionadas con esta enfermedad (por ejemplo, mediciones sobre los temblores en un brazo)
+
+Hay variables en este grupo que contienen resultados de una misma prueba, pero para direntes regiones del cuerpo. Por tanto, para describir todas las variables de una manera resumida definiremos las pruebas realizadas y el significado de las abreviaturas que acompañan a la variable (por ejemplo, la variable "X19-LRU" es el resultado de la prueba "X19" sobre la zona "LRU" del cuerpo)
+
+NOTA: Todas estas variables son de tipo categórico, tomando como valores números enteros a partir del $0$ que miden las complicaciones que experimenta el paciente para realizar dicha prueba.
+
+
+ - *Pruebas*
+
+**X18**: Pronunciación
+**X19**: Expresión facial
+**X20**: Temblores en reposo
+**X21**: Temblor de acción o postural
+**X22**: Rigidez
+**X23**: Golpes con la punta de los dedos
+**X24**: Movimientos de la mano
+**X25**: Movimientos rápidos alternados
+**X26**: Agilidad en piernas
+**X27**: Levantarse de una silla
+**X28**: Postura
+**X29**: Forma de andar
+**X30**: Estabilidad postural
+**X31**: Bradicinesia y hipocinesia corporal
+
+
+ - *Zonas del cuerpo*
+
+**RUE**: ("Right Upper Extremity") Hace referencia a la extremidad superior derecha.
+**LUE**:("Left Upper Extremity") Hace referencia a la extremidad superior izquierda.
+**RLE**:("Right Lower Extremity") Hace referencia a la extremidad inferior derecha.
+**LLE**:("Left Lower Extremity") Hace referencia a la extremidad inferior izquierda.
+**head**: Cabeza
+**neck**: Cuello
+
+### Mediciones acústicas:
+```{r image_grobs2, fig.show = "hold", out.width = "35%", fig.align = "center", fig.cap="\\label{fig:figs}Resumen de las variables utilizadas",echo=FALSE}
+Captura <- image_read("Captura.PNG")
+Captura <- image_border(Captura, "white", "100x20")
+image_write(Captura, "Captura.PNG")
+knitr::include_graphics(c("Captura.PNG"))
+```
 (En el dataset, éstas variables se repiten, ya que se han realizado dos mediciones, una durante la lectura de un texto fonéticamente equilibrado y otra durante un monólogo de unos 90 segundos. Las variables correspondientes al monólogo tienen la terminación "-M")
 
 **EST**: (numérica) Mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. (este valor se haciendo uso de la entropia de Shannon)
@@ -182,7 +220,3 @@ $\Longrightarrow$ *Mediciones acústicas:*
 
 **LRE**: (numérica)Latencia del intercambio respiratorio.
 
-\newpage
-\textbf{FALTA PONER EL CÓDIGO: "Describ el proceso de obtener los datos en R"}
-
-(y podemos poner la foto que dice Pau)
