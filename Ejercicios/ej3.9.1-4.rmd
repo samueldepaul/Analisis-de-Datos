@@ -19,6 +19,7 @@ library(tidyverse)
 
 
 
+
 **4.What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?**
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +

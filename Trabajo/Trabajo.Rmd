@@ -72,7 +72,7 @@ Con el análisis de éste conjunto de datos se pretende:
 data <- read.csv("dataset.csv")
 data <- as_tibble(data)
 ```
-Como podemos ver, en el dataset original las variables tienen nombres muy largos y engorrosos por lo que primero las renombraremos, para poder trabajar con ellas con mas facilidad, y a continuación detallaremos la información que aporta cada una:
+En el dataset original las variables tienen nombres muy largos y engorrosos por lo que primero las renombraremos, para poder trabajar con ellas con mas facilidad, y a continuación detallaremos la información que aporta cada una.
 ```{r, echo = FALSE}
 names(data)[1] <- "code"
 names(data)[2] <- "age"
@@ -217,4 +217,55 @@ knitr::include_graphics(c("Captura.png"))
 **PIR**: (numérica) Intervalos de pausa por respiración\
 **RSR**: (numérica) Tasa de respiración del habla.\
 **LRE**: (numérica)Latencia del intercambio respiratorio.\
+
+\newpage
+
+### Dataset Secundario para Series Temporales
+
+Por completitud respecto al temario de la asignatura, tomamos un segundo dataset con variables evaluadas a lo largo del tiempo para trabajar Series Temporales.
+
+Éste segundo dataset tiene como título "Health Indicator - Parkinson's Disease - Age-Standardized Incidence Rate" y lo hemos obtenido a través de la web del Ministerio de Sanidad de Alberta, Canadá. Puede consultarse en el siguiente enlace: http://www.ahw.gov.ab.ca/IHDA_Retrieval/selectSubCategory.do.
+
+En el dataset figuran diversas variables poblacionales relacionadas con la enfermedad de Parkinson tomadas a la población de Alberta entre los años 2004 y 2020. Cambiamos el nombre de las variables porque son largos y engorrosos. Además, el dataset está dividido en zonas, y subzonas y regiones más pequeñas sucesivamente; sin embargo, a nosotros simplemente nos interesará estudiar las zonas de: Alberta, en general, y las subzonas: South Zone, Calgary Zone, Central Zone, Edmonton Zone y North Zone.
+
+Finalmente, las variables de las que consta el dataset son:
+
+```{r, echo=FALSE}
+data2 <- read.csv("dataset2.csv")
+data2 <- as_tibble(data2)
+```
+
+```{r, echo = FALSE}
+temp = data2$Year
+data2$Year = data2$Geography
+data2$Geography = temp
+```
+
+```{r, echo = FALSE}
+names(data2)[1] <- "year"
+names(data2)[2] <- "region"
+names(data2)[3] <- "sex"
+names(data2)[4] <- "incidence_rate"
+names(data2)[5] <- "incident_cases"
+names(data2)[6] <- "pop_at_risk"
+names(data2)[7] <- "SE"
+names(data2)[8] <- "SS"
+names(data2)[9] <- "ABr"
+```
+```{r, echo=FALSE}
+regions <- c("AB", "Z1", "Z2", "Z3", "Z4", "Z5")
+idx <- data2$region %in% regions
+data2 <- data2[idx,]
+```
+
+
+**year**: (numérica) Año en que se realiza la medición.\
+**region**: (categórica con 8 niveles) Región en la que se mide. \
+**sex:** (categórica con 3 niveles) sexo del habitante.\
+**incidence_rate**: (numérica) Tasa de incidencia (estandarizada por edad)\
+**incident_cases**: (numérica) Casos de Parkinson (para todas las edades)\
+**pop_at_risk**: (numérica) Población en riesgo de padecer Parkinson.\
+**SE**: (numérica): "standard error", error estándar.\
+**SS**: (numérica): "standard score", puntuación estándar.\
+**ABr**: (numérica): "Alberta Rate".\
 
