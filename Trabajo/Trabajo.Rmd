@@ -1,12 +1,10 @@
 ---
-title: "Portada Bien Fachera"
+title: ""
 output: pdf_document
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-\maketitle
 ```{r, echo=FALSE, message = FALSE}
 #Aquí cargamos las librerías que usaremos
 library(tidyverse)
@@ -14,6 +12,23 @@ library(knitr)
 library(magick) #Para la visualización de imágenes
 library(dplyr)
 ```
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Análisis de Datos\par}
+\vspace{3cm}
+{\scshape\Huge 
+Biomarcadores prematuros\\de la enfermedad de Parkinson\par}
+\vspace{1cm}
+\vfill
+{\Large Autores: \par}
+{\Large Pau Vives López, Harold Cruz Lorenzo,\\ Samuel de Paúl Smith \par}
+\vfill
+```{r image_grobs3, fig.show = "hold", out.width = "40%", fig.align = "center",echo=FALSE}
+Captura <- image_read("logouib.png")
+image_write(Captura, "logouib.png")
+knitr::include_graphics(c("logouib.png"))
+```
+\end{titlepage}
 
 \newpage
 # Contextualización, objetivos y descripción de los datos
@@ -71,6 +86,8 @@ names(data)[9] <- "antipsychotic"
 names(data)[10] <- "benzodiazepine"
 names(data)[11] <- "levodopa"
 names(data)[12] <- "clonazepam"
+names(data)[13] <- "HY_scale"
+names(data)[14] <- "UPDRSIII"
 names(data)[15] <- "X18"
 names(data)[16] <- "X19"
 names(data)[17] <- "X20-head"
@@ -127,31 +144,22 @@ names(data)[65] <- "LSE-M"
 
 El dataset consta de las siguientes variables para cada una de las observaciones:
 
-**code**: (carácter) Contiene un código de identificación para cada paciente.
+**code**: (carácter) Contiene un código de identificación para cada paciente.\
+**age**: (numérica) Edad de cada paciente en años. \
+**gender:** (categórica con 2 niveles) Género del paciente.\
+**history**: (categórica de 2 niveles) Variable que indica si el paciente tiene familiares con Parkinson.\
+**onset**: (numérica) Edad del paciente al inicio de la enfermedad, en años.\
+**duration**: (numérica) Duración de la enfermedad desde los primeros síntomas, en años.\
+**antidepr**: (categórica con 10 niveles): Terapia con Antidepresivos del paciente, en caso afirmativo se especifica cuál.\
+**antipark**: (categórica con 1 nivel): Medicación antiparkinsoniana del paciente.\
+**antipsych**: (categórica con 1 nivel): Medicación antipsicótica del paciente.\
+**benzodiazepine**: (Categórica con 4 niveles): Medicación con benzodiazepinas del paciente, en caso afirmativo se especifica cuál.\
+**levodopa**: (numérica) Cantidad en miligramos del consumo de Levodopa diario del paciente.\
+**clonazepam**: (numérica) Cantidad en miligramos del consumo de Clonazepam diario del paciente.\
+**HY_scale**: (categórica con 7 niveles) Mide el estado de la discapacidad funcional asociada a la enfermedad de Parkinson en la escala Hoehn-Yahr\
+**UPDRSIII**: (numérica) Puntuación total en la "UNIFIED PARKINSON'S DISEASE RATING SCALE "\
 
-**age**: (numérica) Edad de cada paciente en años. 
-
-**gender:** (categórica con 2 niveles) Género del paciente.
-
-**history**: (categórica de 2 niveles) Variable que indica si el paciente tiene familiares con Parkinson.
-
-**onset**: (numérica) Edad del paciente al inicio de la enfermedad, en años.
-
-**duration**: (numérica) Duración de la enfermedad desde los primeros síntomas, en años.
-
-**antidepr**: (categórica con 10 niveles): Terapia con Antidepresivos del paciente, en caso afirmativo se especifica cuál.
-
-**antipark**: (categórica con 1 nivel): Medicación antiparkinsoniana del paciente.
-
-**antipsych**: (categórica con 1 nivel): Medicación antipsicótica del paciente.
-
-**benzodiazepine**: (Categórica con 4 niveles): Medicación con benzodiazepinas del paciente, en caso afirmativo se especifica cuál.
-
-**levodopa**: (numérica) Cantidad en miligramos del consumo de Levodopa diario del paciente.
-
-**clonazepam**: (numérica) Cantidad en miligramos del consumo de Clonazepam diario del paciente.
-
-### Evaluación Cognitiva:
+### Evaluación Motora y Cognitiva:
 
 Las siguientes variables son los resultados de unas pruebas realizadas exclusivamente a los sujetos que no están completamente sanos, relacionadas con esta enfermedad (por ejemplo, mediciones sobre los temblores en un brazo)
 
@@ -160,63 +168,53 @@ Hay variables en este grupo que contienen resultados de una misma prueba, pero p
 NOTA: Todas estas variables son de tipo categórico, tomando como valores números enteros a partir del $0$ que miden las complicaciones que experimenta el paciente para realizar dicha prueba.
 
 
- - *Pruebas*
+ - *Pruebas:*
+ 
+ Éstas variables miden diferentes pruebas de la escala UPDRS III, que introducida en 1987, es la escala más ámpliamente utilizada para el análisis de la situación clínica de un paciente parkinsoniano.
 
-**X18**: Pronunciación
-**X19**: Expresión facial
-**X20**: Temblores en reposo
-**X21**: Temblor de acción o postural
-**X22**: Rigidez
-**X23**: Golpes con la punta de los dedos
-**X24**: Movimientos de la mano
-**X25**: Movimientos rápidos alternados
-**X26**: Agilidad en piernas
-**X27**: Levantarse de una silla
-**X28**: Postura
-**X29**: Forma de andar
-**X30**: Estabilidad postural
-**X31**: Bradicinesia y hipocinesia corporal
+**X18**: Pronunciación \
+**X19**: Expresión facial\
+**X20**: Temblores en reposo\
+**X21**: Temblor de acción o postural\
+**X22**: Rigidez\
+**X23**: Golpes con la punta de los dedos\
+**X24**: Movimientos de la mano\
+**X25**: Movimientos rápidos alternados\
+**X26**: Agilidad en piernas\
+**X27**: Levantarse de una silla\
+**X28**: Postura\
+**X29**: Forma de andar\
+**X30**: Estabilidad postural\
+**X31**: Bradicinesia y hipocinesia corporal\
 
 
  - *Zonas del cuerpo*
 
-**RUE**: ("Right Upper Extremity") Hace referencia a la extremidad superior derecha.
-**LUE**:("Left Upper Extremity") Hace referencia a la extremidad superior izquierda.
-**RLE**:("Right Lower Extremity") Hace referencia a la extremidad inferior derecha.
-**LLE**:("Left Lower Extremity") Hace referencia a la extremidad inferior izquierda.
-**head**: Cabeza
+**RUE**: ("Right Upper Extremity") Hace referencia a la extremidad superior derecha.\
+**LUE**:("Left Upper Extremity") Hace referencia a la extremidad superior izquierda.\
+**RLE**:("Right Lower Extremity") Hace referencia a la extremidad inferior derecha.\
+**LLE**:("Left Lower Extremity") Hace referencia a la extremidad inferior izquierda.\
+**head**: Cabeza\
 **neck**: Cuello
 
 ### Mediciones acústicas:
-```{r image_grobs2, fig.show = "hold", out.width = "35%", fig.align = "center", fig.cap="\\label{fig:figs}Resumen de las variables utilizadas",echo=FALSE}
-Captura <- image_read("Captura.PNG")
-Captura <- image_border(Captura, "white", "100x20")
-image_write(Captura, "Captura.PNG")
-knitr::include_graphics(c("Captura.PNG"))
+```{r image_grobs2, fig.show = "hold", out.width = "95%", fig.align = "center", fig.cap="\\label{fig:figs}Resumen de las variables utilizadas",echo=FALSE}
+Captura <- image_read("Captura.png")
+image_write(Captura, "Captura.png")
+knitr::include_graphics(c("Captura.png"))
 ```
 (En el dataset, éstas variables se repiten, ya que se han realizado dos mediciones, una durante la lectura de un texto fonéticamente equilibrado y otra durante un monólogo de unos 90 segundos. Las variables correspondientes al monólogo tienen la terminación "-M")
 
-**EST**: (numérica) Mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. (este valor se haciendo uso de la entropia de Shannon)
-
-**RST**: (numérica) Mide la velocidad de elocución respecto a la calidad de ?¿?¿?¿ 
-
-**AST**: (numérica) Mide la aceleración o deceleración en la velocidad del habla.
-
-**DPI**: (numérica) Mide la media de la duración de los intérvalos de pausas de cada paciente.
-
-**DVI**: (numérica) Mide la duración media de los intérvalos de voz.
-
-**GVI**: (numérica) Separación media entre intérvalos de voz.
-
-**DUS**: (numérica) Duración media de las consonantes oclusivas.
-
-**DUF**: (numérica) Mide la diferencia entre el 2º Coeﬁciente Cepstral en las Frecuencias de Mel.
-
-**RLR**: (numérica) Sonoridad relativa de la respiración
-
-**PIR**: (numérica) Intervalos de pausa por respiración
-
-**RSR**: (numérica) Tasa de respiración del habla.
-
-**LRE**: (numérica)Latencia del intercambio respiratorio.
+**EST**: (numérica) Mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. (este valor se haciendo uso de la entropia de Shannon)\
+**RST**: (numérica) Ratio de la sincronización del habla. \
+**AST**: (numérica) Mide la aceleración o deceleración en la velocidad del habla.\
+**DPI**: (numérica) Mide la media de la duración de los intérvalos de pausas de cada paciente.\
+**DVI**: (numérica) Mide la duración media de los intérvalos de voz.\
+**GVI**: (numérica) Separación media entre intérvalos de voz.\
+**DUS**: (numérica) Duración media de las consonantes oclusivas.\
+**DUF**: (numérica) Mide la diferencia entre el 2º Coeﬁciente Cepstral en las Frecuencias de Mel.\
+**RLR**: (numérica) Sonoridad relativa de la respiración\
+**PIR**: (numérica) Intervalos de pausa por respiración\
+**RSR**: (numérica) Tasa de respiración del habla.\
+**LRE**: (numérica)Latencia del intercambio respiratorio.\
 
