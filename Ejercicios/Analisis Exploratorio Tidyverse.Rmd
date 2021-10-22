@@ -56,7 +56,7 @@ ggplot(data = data) +
             color="red", linetype="dashed", size=1)
 ```
 A continuación daremos los valores más representativos de la dispersión de los datos:
-```{r}
+```{r, echo = FALSE}
 summary(data$GVI) 
 sd(data$GVI)
 ```
