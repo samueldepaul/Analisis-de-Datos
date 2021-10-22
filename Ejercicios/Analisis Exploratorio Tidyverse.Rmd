@@ -1,0 +1,66 @@
+---
+title: "Ejercicios de Análisis Exploratorio de Datos con Tidyverse"
+author: "Pau Vives,  Arnold Cruz, Samuel de Paúl"
+date: "22/10/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(RColorBrewer)
+```
+```{r, echo=FALSE}
+#Carga de los Datos
+data <- read.csv("newdata1.csv")
+data <- as_tibble(data)
+```
+
+
+## Visualización e interpretación de variables:
+
+**1. Una de las variables cualitativas de vuestro conjunto de datos (1 punto)**
+
+La variable que interpretaremos será X24.LUE, ésta variable indica el resultado (de 0 a 4) 
+obtenido en la prueba de movimientos en la mano izquierda, realizada para evaluar a los pacientes
+en la escala UPDRSIII. Los valores varían entre 0 (Ausente) y 4 (De gran amplitud, interfiere la alimentación). Utilizaremos un gráfico de barras para visualizar la distribución de la variable.
+
+```{r, echo = FALSE, fig.show = "hold", out.width = "75%", fig.align = "center"}
+ggplot(data = data[1:80,]) +
+  geom_bar(mapping = aes(x = X24.LUE[1:80], fill = X24.LUE[1:80])) +
+  scale_fill_brewer(palette = "OrRd") + 
+  xlab("Resultado (0-4) en la prueba de movimientos mano izquierda") +
+  ylab("Cantidad de Pacientes") +
+  theme(legend.position = "none")
+```
+Contamos también cuantos valores hay en cada barra, para tener el máximo de información
+posible:
+```{r, echo=FALSE}
+data[1:80,] %>% 
+  count(X24.LUE[1:80])
+```
+
+Por tanto, como vemos, la mayoría de los pacientes no presentan movimientos o temblores en la mano izquierda, o presentan movimientos ligeros; mientras que una pequeña fracción de los pacientes tiene problemas serios en lo que a ésta prueba respecta.
+
+**2.  Una de las variables cuantitativas de vuestro conjunto de datos. (1 punto)**
+
+Analizaremos la variable cuantitativa llamada GVI. Ésta variable corresponde a una medición realizada a los 
+pacientes mientras éstos leían un texto phonéticamente equilibrado. Se mide la separación media entre los
+intervalos de voz.
+
+```{r, echo = FALSE, fig.show = "hold", out.width = "75%", fig.align = "center"}
+ggplot(data = data) +
+  geom_histogram(mapping = aes(x = GVI), binwidth = 2, fill = "lightgreen") +  
+  geom_vline(aes(xintercept=mean(GVI)),
+            color="red", linetype="dashed", size=1)
+```
+A continuación daremos los valores más representativos de la dispersión de los datos:
+```{r}
+summary(data$GVI) 
+sd(data$GVI)
+```
+Vemos por tanto que los datos, pese a tener un valor mínimo y máximo bastante lejanos,
+están agrupados en torno a la media, que es de 53.26, con una desviación típica de 15.6.
+Vemos valores bastante alejados de los demás, tanto por lo alto como por lo bajo.
+
