@@ -26,7 +26,7 @@ La variable que interpretaremos será X24.LUE, ésta variable indica el resultad
 obtenido en la prueba de movimientos en la mano izquierda, realizada para evaluar a los pacientes
 en la escala UPDRSIII. Los valores varían entre 0 (Ausente) y 4 (De gran amplitud, interfiere la alimentación). Utilizaremos un gráfico de barras para visualizar la distribución de la variable.
 
-```{r, echo = FALSE, fig.show = "hold", out.width = "75%", fig.align = "center"}
+```{r, echo = FALSE, fig.show = "hold", out.width = "66%", fig.align = "center"}
 ggplot(data = data[1:80,]) +
   geom_bar(mapping = aes(x = X24.LUE[1:80], fill = X24.LUE[1:80])) +
   scale_fill_brewer(palette = "OrRd") + 
@@ -46,10 +46,10 @@ Por tanto, como vemos, la mayoría de los pacientes no presentan movimientos o t
 **2.  Una de las variables cuantitativas de vuestro conjunto de datos. (1 punto)**
 
 Analizaremos la variable cuantitativa llamada GVI. Ésta variable corresponde a una medición realizada a los 
-pacientes mientras éstos leían un texto phonéticamente equilibrado. Se mide la separación media entre los
+pacientes mientras éstos leían un texto fonéticamente equilibrado. Se mide la separación media entre los
 intervalos de voz.
 
-```{r, echo = FALSE, fig.show = "hold", out.width = "75%", fig.align = "center"}
+```{r, echo = FALSE, fig.show = "hold", out.width = "66%", fig.align = "center"}
 ggplot(data = data) +
   geom_histogram(mapping = aes(x = GVI), binwidth = 2, fill = "lightgreen") +  
   geom_vline(aes(xintercept=mean(GVI)),
@@ -63,4 +63,24 @@ sd(data$GVI)
 Vemos por tanto que los datos, pese a tener un valor mínimo y máximo bastante lejanos,
 están agrupados en torno a la media, que es de 53.26, con una desviación típica de 15.6.
 Vemos valores bastante alejados de los demás, tanto por lo alto como por lo bajo.
+
+
+**3.  Una de las variables que presente un patrón inusual y/o valores atípicos. (2 puntos)**
+
+Buscamos una variable que tenga valores inusuales representándola mediante un histograma, acercando la imagen a los valores más pequeños del eje vertical.
+```{r, echo = FALSE, fig.show = "hold", out.width = "66%", fig.align = "center"}
+ggplot(data) + 
+  geom_histogram(mapping = aes(x = DVI), binwidth = 20, fill = "firebrick4") +
+  coord_cartesian(ylim = c(0, 10))
+```
+Observamos que en la variable DVI tenemos algún outlier. Al igual que en el caso anterior, la variable se corresponde a una medición realizada a los pacientes mientras éstos leían un texto fonéticamente equilibrado. Se mide la duración media de los intervalos de voz. La gran mayoría de los valores se encuentran entre 200 y 400, mientras que, en el histograma observamos que hay valores que están por encima de 650. Veamos ahora cuáles son esos valores.
+```{r, echo = FALSE}
+outliers <- data %>% 
+  filter(DVI > 500) %>% 
+  select(code, age, gender, HY_scale, UPDRSIII, DVI) %>%
+  arrange(DVI)
+outliers
+```
+
+
 
