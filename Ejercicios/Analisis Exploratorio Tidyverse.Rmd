@@ -22,7 +22,7 @@ data <- as_tibble(data)
 
 **1. Una de las variables cualitativas de vuestro conjunto de datos (1 punto)**
 
-La variable que interpretaremos será X24.LUE, ésta variable indica el resultado (de 0 a 4) 
+La variable que interpretaremos será \textit{X24.LUE}, ésta variable indica el resultado (de 0 a 4) 
 obtenido en la prueba de movimientos en la mano izquierda, realizada para evaluar a los pacientes
 en la escala UPDRSIII. Los valores varían entre 0 (Ausente) y 4 (De gran amplitud, interfiere la alimentación). Utilizaremos un gráfico de barras para visualizar la distribución de la variable.
 
@@ -45,7 +45,7 @@ Por tanto, como vemos, la mayoría de los pacientes no presentan movimientos o t
 
 **2.  Una de las variables cuantitativas de vuestro conjunto de datos. (1 punto)**
 
-Analizaremos la variable cuantitativa llamada GVI. Ésta variable corresponde a una medición realizada a los 
+Analizaremos la variable cuantitativa llamada \textit{GVI}. Ésta variable corresponde a una medición realizada a los 
 pacientes mientras éstos leían un texto fonéticamente equilibrado. Se mide la separación media entre los
 intervalos de voz.
 
@@ -73,14 +73,26 @@ ggplot(data) +
   geom_histogram(mapping = aes(x = DVI), binwidth = 20, fill = "firebrick4") +
   coord_cartesian(ylim = c(0, 10))
 ```
-Observamos que en la variable DVI tenemos algún outlier. Al igual que en el caso anterior, la variable se corresponde a una medición realizada a los pacientes mientras éstos leían un texto fonéticamente equilibrado. Se mide la duración media de los intervalos de voz. La gran mayoría de los valores se encuentran entre 200 y 400, mientras que, en el histograma observamos que hay valores que están por encima de 650. Veamos ahora cuáles son esos valores.
+Observamos que en la variable \textit{DVI} tenemos algún outlier. Al igual que en el caso anterior, la variable se corresponde a una medición realizada a los pacientes mientras éstos leían un texto fonéticamente equilibrado. Se mide la duración media de los intervalos de voz. La gran mayoría de los valores se encuentran entre 200 y 400, mientras que, en el histograma observamos que hay valores que están por encima de 650. Veamos ahora cuáles son esos valores.
 ```{r, echo = FALSE}
 outliers <- data %>% 
   filter(DVI > 500) %>% 
   select(code, age, gender, HY_scale, UPDRSIII, DVI) %>%
   arrange(DVI)
 outliers
+#deberíamos eliminarlo????
 ```
+Vemos que se trata del paciente PD04, de 75 años, que no tiene valores execsivamente altos ni de \textit{UPDRSIII} (escala generalizada en la que se mide la gravedad del Parkinson) ni de \textit{HY_scale} (un sistema de uso común para describir cómo progresan los síntomas de la enfermedad de Parkinson), por lo que no encontramos un motivo claro para éste valor tan aislado.
 
+**4. El análisis conjunto de una variable categórica y una cuantitativa. (2 puntos)**
+
+Para este apartado tomaremos la variable categórica \textit{HY_scale}, cuyo valor representa en qué fase del avance de los síntomas del Parkinson se encuentra cada paciente, y la variable cualitativa \textit{EST}, que mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. Los pacientes de la muestra que no tienen Parkinson están marcados con "-". Sustituíremos este símbolo por el 0, que será equivalente y más cómodo de manejar.
+
+```{r, echo = FALSE, fig.show = "hold", out.width = "66%", fig.align = "center"}
+data$HY_scale[31:130] = 0
+ggplot(data = data, mapping = aes(x = EST, y = ..density..)) + 
+  geom_freqpoly(mapping = aes(colour = HY_scale), binwidth = 0.01)
+```
+Observamos que los valores correspondientes a los pacientes con puntuación más alta en la escala H&Y (2.5) se situan en un rango bastante alto de \textit{EST}, como era de esperar. A su vez, vemos que la línea roja, correspondiente al nivel 0 en la escala (son pacientes que no tienen Parkinson) concentra más valores que el resto de niveles en la zona de baja \textit{EST}. Vemos también que los niveles 1.5 y 2 tienen curvas de densidad similares a las demás, aunque concentran la mayoría de sus valores en un rango de \textit{EST} ligeramente menor al del nivel 2.5.
 
 
