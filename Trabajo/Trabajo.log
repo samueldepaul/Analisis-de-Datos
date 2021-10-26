@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  15 OCT 2021 21:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  26 OCT 2021 23:55
 entering extended mode
 **./Trabajo.tex
 (Trabajo.tex
@@ -589,19 +589,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 324--336
 
  []
 
-[4] (Trabajo.aux)
+[4]
+<Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf, id=56, 469.755pt x 325.215p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf  use
+d on input line 396.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[5 <./Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf>] (Trabajo.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 12628 strings out of 478864
- 191970 string characters out of 2848186
- 535398 words of memory out of 3000000
- 30242 multiletter control sequences out of 15000+600000
- 450505 words of font info for 96 fonts, out of 8000000 for 9000
+ 12665 strings out of 478864
+ 192896 string characters out of 2848186
+ 537537 words of memory out of 3000000
+ 30254 multiletter control sequences out of 15000+600000
+ 451393 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,80p,722b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,80p,723b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{
 C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/
 Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Us
@@ -611,9 +620,9 @@ Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on Trabajo.pdf (5 pages, 1282527 bytes).
+Output written on Trabajo.pdf (6 pages, 1298104 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 28733 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 128 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 28754 words of extra memory for PDF output out of 29859 (max. 10000000)
 

@@ -269,3 +269,111 @@ data2 <- data2[idx,]
 **SS**: (numérica): "standard score", puntuación estándar.\
 **ABr**: (numérica): "Alberta Rate".\
 
+# Limpieza de datos y valores perdidos:
+
+En el dataset principal, tenemos una gran cantidad de variables categóricas, para trabajar con ellas de manera óptima primero las transformaremos a factores con sus respectivos niveles.
+
+Una vez hecho esto, notamos que tenemos muchas variables en que aparecen guiones "-" por varias razones, y lo que haremos será transformar todos estos guiones en \textit{NA's}, y seguidamente explicar el motivo para que éstos datos sean faltantes.
+
+```{r, echo = FALSE}
+#Transformamos las variables pertinentes en factores
+data$gender = as_factor(data$gender)
+data$history = as_factor(data$history)
+data$antidepressant = as_factor(data$antidepressant)
+data$antiparkinsonian = as_factor(data$antiparkinsonian)
+data$antipsychotic = as_factor(data$antipsychotic)
+data$benzodiazepine = as_factor(data$benzodiazepine)
+data$HY_scale = as_factor(data$HY_scale)
+data$X18 = as_factor(data$X18)
+data$X19 = as_factor(data$X19)
+data$`X20-head` = as_factor(data$`X20-head`)
+data$`X20-RUE` = as_factor(data$`X20-RUE`)
+data$`X20-LUE` = as_factor(data$`X20-LUE`)
+data$`X20-RLE` = as_factor(data$`X20-RLE`)
+data$`X20-LLE` = as_factor(data$`X20-LLE`)
+data$`X21-RUE` = as_factor(data$`X21-RUE`)
+data$`X21-LUE` = as_factor(data$`X21-LUE`)
+data$`X22-neck` = as_factor(data$`X22-neck`)
+data$`X22-RUE` = as_factor(data$`X22-RUE`)
+data$`X22-LUE` = as_factor(data$`X22-LUE`)
+data$`X22-RLE` = as_factor(data$`X22-RLE`)
+data$`X22-LLE` = as_factor(data$`X22-LLE`)
+data$`X23-RUE` = as_factor(data$`X23-RUE`)
+data$`X23-LUE` = as_factor(data$`X23-LUE`)
+data$`X24-RUE` = as_factor(data$`X24-RUE`)
+data$`X24-LUE` = as_factor(data$`X24-LUE`)
+data$`X25-RUE` = as_factor(data$`X25-RUE`)
+data$`X25-LUE` = as_factor(data$`X25-LUE`)
+data$`X26-RLE` = as_factor(data$`X26-RLE`)
+data$`X26-LLE` = as_factor(data$`X26-LLE`)
+data$X27 = as_factor(data$X27)
+data$X28 = as_factor(data$X28)
+data$X29 = as_factor(data$X29)
+data$X30 = as_factor(data$X30)
+data$X31 = as_factor(data$X31)
+
+#Eliminamos los guiones e introducimos NA's
+levels(data$history)[3] = NA
+data$onset[81:130] = NA
+data$duration[81:130] = NA
+data$HY_scale[31:130] = NA
+data[81:130, 14:41] = NA
+#Ésta última instrucción convierte en NA todos los valores 
+#de las pruebas X18 - X31 en las filas de los pacientes sanos
+```
+
+Las variables \textit{history}, \textit{onset} y \textit{duration} tienen \textit{NA's} a partir de la observación 81 ya que los pacientes 81-130 son los controles sanos y por tanto no tiene sentido tomar mediciones acerca de su enfermedad si no tienen ninguna. Similarmente, la variable \textit{HY.scale} toma el valor \textit{NA} a partir de la observación 31, ya que los pacientes 1-30 son los que padecen la enfermedad de Parkinson y la escala H&C se utiliza para medir el avance de los síntomas de dicha enfermedad. 
+
+Finalmente, hay una gran concentración de \textit{NA}'s en las columnas correspondientes a las pruebas X18 - X30 de la escala UPDRS III, y esto se debe a que las pruebas sólo se han realizado a los pacientes que padecen la enfermedad de Parkinson o trastorno de conducta del sueño REM, es decir, en las primeras 80 observaciones.
+
+Con el objetivo de limpiar los datos lo máximo posible, eliminaremos algunas variables que no aportan información en absoluto. Durante la recogida de datos se tomaron datos de los pacientes que han resultado no ser útiles para la investigación. Las variables \textit{antiparkinsonian}, \textit{antipsychotic} y \textit{levodopa}, que miden si el paciente se medica con ciertos medicamentos, tienen el mismo valor para las 130 observaciones (No, No y 0mg/día respectivamente). De modo que las eliminamos del conjunto de datos por ser supérfluas.
+
+```{r, echo = FALSE}
+#Aquí Pau o Harold tenía algo que decir al respecto
+data = select(data , -antiparkinsonian, -antipsychotic, -levodopa)
+```
+
+Otra cosa que nos facilitará trabajar con los datos será tener una variable que nos indique qué enfermedad padece un paciente (si es que padece alguna). Ésta información ya se encuentra en la variable \textit{code}, que nos da el código del paciente. Sin embargo, los códigos incluyen también un número indentificativo para el paciente por lo que no podemos trabajar con ésta variable. Lo que haremos será utilizar la función \textit{separate()} para dividir la variable \textit{code} en dos variables nuevas, una que conservará el mismo nombre y únicamente guardará el número asignado a cada paciente, y otra a la que llamaremos \textit{disease} que indicará qué enfermedad padece el paciente; enfermedad de Parkinson (EP), trastorno de conducta del sueño REM (RBD) o  si son controles sanos (HC).
+
+```{r, echo = FALSE}
+data = separate(data, code, into = c("disease", "code"), sep = "(?<=[A-Za-z])(?=[0-9])") 
+temp = data$disease
+data$disease = data$code
+data$code = temp
+names(data)[1] = "code"
+names(data)[2] = "disease"
+#tiene que haber una forma más fina de hacer esto
+```
+
+
+# Fase Descriptiva: Visualización y Resúmen de variables.
+
+Vamos a representar gráficamente las tres variables \textit{age, gender, disease} para poner en perspectiva algunas de las cualidades más genéricas de los pacientes evaluados:
+
+```{r, echo = FALSE, fig.show = "hold", out.width = "100%", fig.align = "center"}
+library(RColorBrewer)
+#install.packages("patchwork")
+library(patchwork)
+
+p1 <- ggplot(data = data) +
+      geom_bar(mapping = aes(x = age), fill = "skyblue") +
+      xlab("Edad de los Pacientes") +
+      ylab("Cantidad de Pacientes") +
+      theme(legend.position = "none")
+
+p2 <- ggplot(data = data) +
+      geom_bar(mapping = aes(x = gender, fill = gender)) +
+      xlab("Sexo de los Pacientes") +
+      ylab("Cantidad de Pacientes") +
+      theme(legend.position = "none")
+
+
+p3 <- ggplot(data = data) +
+      geom_bar(mapping = aes(x = disease, fill = disease)) +
+      xlab("Enfermedad Padecida") +
+      ylab("Cantidad de Pacientes") +
+      theme(legend.position = "none")
+
+p1+p2+p3
+```
+
