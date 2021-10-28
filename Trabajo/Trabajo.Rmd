@@ -564,7 +564,7 @@ ggplot(data[1:30,],
        fill = "Valor en la escala H&Y",
        x = "Edad del Paciente")
 ```
-Por lo tanto, en el primer gráfico vemos que, en lo que respecta al avance de los síntomas, el porcentaje de hombres con una escala de 1.5 en H&Y (síntomas leves) es menor que el de mujeres. A su vez, el porcentaje de hombres en escala 2.5 (síntomas más graves) es mayor. De ésta manera observamos que los síntomas de la enfermedad de Parkinson afectan de forma más graves a los hombres que a las mujeres.
+Por lo tanto, en el primer gráfico vemos que, en lo que respecta al avance de los síntomas, el porcentaje de hombres con una escala de 1.5 en H&Y (síntomas leves) es menor que el de mujeres. A su vez, el porcentaje de hombres en escala 2.5 (síntomas más graves) es mayor. De ésta manera observamos que los síntomas de la enfermedad de Parkinson afectan de forma más grave a los hombres que a las mujeres.
 
 Por otra parte, en el segundo gráfico vemos, para cada valor en la escala H&Y, la distribución de las edades de los pacientes afectados. Se aprecia que los pacientes que están en los valores 2 y 2.5 de la escala H&Y tienen una distribución de edades muy parecida. Sin embargo, observamos claramente que los pacientes que están en el valor 1.5, es decir, los de síntomas más leves, tienen una edad significativamente más baja que los otros dos grupos. Así, constatamos que los pacientes más jóvenes presentan una sintomatología más leve.
 
@@ -606,4 +606,5 @@ p2_nomed <- ggplot(data_nomed[1:80, ],
 
 p1_nomed+p2_nomed
 ```
+\textbf{[...] (no sé si sirve de algo)}
 
