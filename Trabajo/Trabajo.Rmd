@@ -11,6 +11,11 @@ library(tidyverse)
 library(knitr)
 library(magick) #Para la visualización de imágenes
 library(dplyr)
+library(ggpol)
+library(scales)
+library(RColorBrewer)
+library(patchwork)
+library(ggridges)
 ```
 \begin{titlepage}
 \centering
@@ -322,7 +327,7 @@ data[81:130, 14:41] = NA
 #de las pruebas X18 - X31 en las filas de los pacientes sanos
 ```
 
-Las variables \textit{history}, \textit{onset} y \textit{duration} tienen \textit{NA's} a partir de la observación 81 ya que los pacientes 81-130 son los controles sanos y por tanto no tiene sentido tomar mediciones acerca de su enfermedad si no tienen ninguna. Similarmente, la variable \textit{HY.scale} toma el valor \textit{NA} a partir de la observación 31, ya que los pacientes 1-30 son los que padecen la enfermedad de Parkinson y la escala H&C se utiliza para medir el avance de los síntomas de dicha enfermedad. 
+Las variables \textit{history}, \textit{onset} y \textit{duration} tienen \textit{NA's} a partir de la observación 81 ya que los pacientes 81-130 son los controles sanos y por tanto no tiene sentido tomar mediciones acerca de su enfermedad si no tienen ninguna. Similarmente, la variable \textit{HY.scale} toma el valor \textit{NA} a partir de la observación 31, ya que los pacientes 1-30 son los que padecen la enfermedad de Parkinson y la escala H&Y se utiliza para medir el avance de los síntomas de dicha enfermedad. 
 
 Finalmente, hay una gran concentración de \textit{NA}'s en las columnas correspondientes a las pruebas X18 - X30 de la escala UPDRS III, y esto se debe a que las pruebas sólo se han realizado a los pacientes que padecen la enfermedad de Parkinson o trastorno de conducta del sueño REM, es decir, en las primeras 80 observaciones.
 
@@ -350,10 +355,8 @@ names(data)[2] = "disease"
 
 Vamos a representar gráficamente las tres variables \textit{age, gender, disease} para poner en perspectiva algunas de las cualidades más genéricas de los pacientes evaluados:
 
-```{r, echo = FALSE, fig.show = "hold", out.width = "100%", fig.align = "center"}
-library(RColorBrewer)
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center"}
 #install.packages("patchwork")
-library(patchwork)
 
 p1 <- ggplot(data = data) +
       geom_bar(mapping = aes(x = age), fill = "skyblue") +
@@ -375,5 +378,232 @@ p3 <- ggplot(data = data) +
       theme(legend.position = "none")
 
 p1+p2+p3
+```
+Por tanto vemos claramente que las observaciones se tratan de pacientes de edades comprendidas mayormente entre 50 y 80 años, donde predominan los hombres (aproximadamente una mujer por cada 4 hombres). Además confirmamos la distribución por enfermedad padecida mencionada en la contextualización del trabajo; 50 controles sanos (HC), 30 pacientes que padecen enfermedad de Parkinson (PD) y 50 que padecen trastorno de la conducta del sueño REM (RBD).
+
+Ahora, lo que queremos hacer es, para cada una de las mediciones realizadas a los pacientes durante la lectura de un texto fonéticamente equilibrado y durante la exposición de un monólogo de 90 segundos, comparar los valores obtenidos en función de la variable \textit{disease}, es decir, comparar según si los pacientes son enfermos de Parkinson, de trastorno de conducta del sueño REM o controles sanos.
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+# plot the distribution of salaries 
+# by rank using jittering
+#install.packages("ggpol")
+
+p1_est <- ggplot(data, 
+       aes(x = disease, 
+           y = EST, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable EST", 
+       subtitle = "(Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2_est <- ggplot(data, 
+       aes(x = disease, 
+           y = `EST-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable EST", 
+       subtitle = "(Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1_est + p2_est 
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+p1_rst <- ggplot(data, 
+       aes(x = disease, 
+           y = RST, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable RST", 
+       subtitle = "(Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2_rst <- ggplot(data, 
+       aes(x = disease, 
+           y = `RST-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable RST", 
+       subtitle = "(Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1_rst + p2_rst 
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+p1_ast <- ggplot(data, 
+       aes(x = disease, 
+           y = AST, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable AST", 
+       subtitle = "(Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2_ast <- ggplot(data, 
+       aes(x = disease, 
+           y = `AST-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable AST", 
+       subtitle = "(Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1_ast + p2_ast
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+p1_dpi <- ggplot(data, 
+       aes(x = disease, 
+           y = DPI, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable DPI", 
+       subtitle = "(Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p2_dpi <- ggplot(data, 
+       aes(x = disease, 
+           y = `DPI-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "Variable DPI", 
+       subtitle = "(Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+p1_dpi + p2_dpi
+```
+\textbf{ [...] }
+\newpage
+
+Queremos comprobar también si las personas que padecen Parkinson, tienen una puntuación más alta en la escala de UPDRSIII que aquellas que padecen trastorno de la conducta del sueño REM.
+
+```{r}
+#o igual no, no sé pa qué
+```
+
+La variable \textit{HY.scale} nos indica el grado de avance de los síntomas del Parkinson. Vamos a observar si los síntomas avanzan más rápido dependiendo de la edad o sexo del paciente:
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
+plotdata <- data[1:30,] %>%
+  group_by(gender, HY_scale) %>%
+  summarize(n = n()) %>% 
+  mutate(pct = n/sum(n),
+         lbl = scales::percent(pct))
+
+# create segmented bar chart
+# adding labels to each segment
+
+ggplot(plotdata, 
+       aes(x = gender,
+           y = pct,
+           fill = HY_scale)) + 
+  geom_bar(stat = "identity",
+           position = "fill") +
+  scale_y_continuous(breaks = seq(0, 1, .2), 
+                     label = percent) +
+  geom_text(aes(label = lbl), 
+            size = 3, 
+            position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer(palette = "Set2") +
+  labs(y = "Porcentaje", 
+       fill = "Valor en la escala H&Y",
+       x = "Género del paciente",
+       title = "Valor de H&Y por género.") +
+  theme_minimal()
+
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
+ggplot(data[1:30,], 
+       aes(x = age, 
+           fill = HY_scale)) +
+  geom_density(alpha = 0.4) +
+  labs(title = "Distribución de Edad por valor en la escala H&Y",
+       y = "Densidad", 
+       fill = "Valor en la escala H&Y",
+       x = "Edad del Paciente")
+```
+Por lo tanto, en el primer gráfico vemos que, en lo que respecta al avance de los síntomas, el porcentaje de hombres con una escala de 1.5 en H&Y (síntomas leves) es menor que el de mujeres. A su vez, el porcentaje de hombres en escala 2.5 (síntomas más graves) es mayor. De ésta manera observamos que los síntomas de la enfermedad de Parkinson afectan de forma más graves a los hombres que a las mujeres.
+
+Por otra parte, en el segundo gráfico vemos, para cada valor en la escala H&Y, la distribución de las edades de los pacientes afectados. Se aprecia que los pacientes que están en los valores 2 y 2.5 de la escala H&Y tienen una distribución de edades muy parecida. Sin embargo, observamos claramente que los pacientes que están en el valor 1.5, es decir, los de síntomas más leves, tienen una edad significativamente más baja que los otros dos grupos. Así, constatamos que los pacientes más jóvenes presentan una sintomatología más leve.
+
+\newpage
+
+Estudiaremos también si aquellos pacientes toman algún tipo de medicamento presentan un menor valor en la escala UPDRS III, es decir [...]
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
+#install.packages("ggridges")
+
+#No distinguiremos entre medicamentos específicos y reduciremos los niveles de los
+#factores únicamente a SÍ/NO 
+
+data_nomed <- data
+data_nomed <- mutate(data_nomed, benzodiazepine = fct_collapse(benzodiazepine,
+    Yes = levels(data_nomed$benzodiazepine)[2:4]))
+data_nomed <- mutate(data_nomed, antidepressant = fct_collapse(antidepressant,
+    Yes = levels(data_nomed$antidepressant)[2:10]))
+
+p1_nomed <- ggplot(data_nomed[1:80, ], 
+       aes(x = as.numeric(UPDRSIII), 
+           y = antidepressant, 
+           fill = antidepressant)) +
+  geom_density_ridges() + 
+  theme_ridges() +
+  labs(title = "Valor en la escala UPDRS III respecto a la medicación", 
+       x = "Valor escala UPDRS III",
+       y = "Antidepresivos") +
+  theme(legend.position = "none")
+
+p2_nomed <- ggplot(data_nomed[1:80, ], 
+       aes(x = as.numeric(UPDRSIII), 
+           y = benzodiazepine, 
+           fill = benzodiazepine)) +
+  geom_density_ridges() + 
+  theme_ridges() +
+  labs(x = "Valor escala UPDRS III",
+       y = "Benzodiazepinas") +
+  theme(legend.position = "none")
+
+p1_nomed+p2_nomed
 ```
 

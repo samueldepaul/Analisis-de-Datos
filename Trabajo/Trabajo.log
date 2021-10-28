@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  26 OCT 2021 23:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  28 OCT 2021 13:01
 entering extended mode
 **./Trabajo.tex
 (Trabajo.tex
@@ -356,6 +356,22 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layoutvoffset=\dimen160
 \Gm@dimlist=\toks25
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)
+) (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.st
+y
+Package: fancyvrb 2021/08/12 v3.8 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count285
+\FV@InFile=\read2
+\FV@TabBox=\box52
+\c@FancyVerbLine=\count286
+\FV@StepNumber=\count287
+\FV@OutFile=\write3
+) (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/framed\framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip54
+\fb@frw=\dimen161
+\fb@frh=\dimen162
+\FrameRule=\dimen163
+\FrameSep=\dimen164
 ) (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.st
 y
 Package: graphicx 2020/12/05 v1.2c Enhanced LaTeX Graphics (DPC,SPQR)
@@ -370,14 +386,14 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen161
-\Gin@req@width=\dimen162
+\Gin@req@height=\dimen165
+\Gin@req@width=\dimen166
 )
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pd
 ftex.def
 File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count285
-\l__pdf_internal_box=\box52
+\l__color_backend_stack_int=\count288
+\l__pdf_internal_box=\box53
 ) (Trabajo.aux
 
 LaTeX Warning: Label `fig:figs' multiply defined.
@@ -385,32 +401,32 @@ LaTeX Warning: Label `fig:figs' multiply defined.
 )
 \openout1 = `Trabajo.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Info: Redefining \microtypecontext on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Info: Redefining \microtypecontext on input line 107.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 67.
+LaTeX Info: Redefining \showhyphens on input line 107.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -421,16 +437,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
 kii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count286
-\scratchdimen=\dimen163
-\scratchbox=\box53
-\nofMPsegments=\count287
-\nofMParguments=\count288
+\scratchcounter=\count289
+\scratchdimen=\dimen167
+\scratchbox=\box54
+\nofMPsegments=\count290
+\nofMParguments=\count291
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count289
-\MPscratchDim=\dimen164
-\MPnumerator=\count290
-\makeMPintoPDFobject=\count291
+\MPscratchCnt=\count292
+\MPscratchDim=\dimen168
+\MPnumerator=\count293
+\makeMPintoPDFobject=\count294
 \everyMPtoPDFconversion=\toks27
 )
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-
@@ -443,7 +459,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 67.
+Package hyperref Info: Link coloring OFF on input line 107.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -453,11 +469,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 tlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count292
+\c@section@level=\count295
 )
-LaTeX Info: Redefining \ref on input line 67.
-LaTeX Info: Redefining \pageref on input line 67.
-LaTeX Info: Redefining \nameref on input line 67.
+LaTeX Info: Redefining \ref on input line 107.
+LaTeX Info: Redefining \pageref on input line 107.
+LaTeX Info: Redefining \nameref on input line 107.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -498,7 +514,7 @@ Package microtype Info: Character `029' is missing
 <logouib.png, id=3, 737.3949pt x 293.6571pt>
 File: logouib.png Graphic file (type png)
 <use logouib.png>
-Package pdftex.def Info: logouib.png  used on input line 81.
+Package pdftex.def Info: logouib.png  used on input line 121.
 (pdftex.def)             Requested size: 187.89256pt x 74.82556pt.
 [1
 
@@ -507,47 +523,47 @@ Package pdftex.def Info: logouib.png  used on input line 81.
 <img1.png, id=13, 745.1037pt x 531.9072pt>
 File: img1.png Graphic file (type png)
 <use img1.png>
-Package pdftex.def Info: img1.png  used on input line 113.
+Package pdftex.def Info: img1.png  used on input line 153.
 (pdftex.def)             Requested size: 164.4122pt x 117.36893pt.
 <img2.png, id=15, 862.1811pt x 625.8582pt>
 File: img2.png Graphic file (type png)
 <use img2.png>
-Package pdftex.def Info: img2.png  used on input line 113.
+Package pdftex.def Info: img2.png  used on input line 153.
 (pdftex.def)             Requested size: 164.40811pt x 119.34402pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-25.
+65.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-25.
+65.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-125.
+165.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-125.
+165.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 125.
+(Font)              <10> on input line 165.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 125.
+(Font)              <7> on input line 165.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 125.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 125
+(Font)              <5> on input line 165.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 165
 .
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 125
+LaTeX Font Info:    Trying to load font information for U+msb on input line 165
 .
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -555,21 +571,21 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-52.
+92.
 (C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.157 \newpage
+l.197 \newpage
                [1 <./img1.png> <./img2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 170--197
+Underfull \hbox (badness 10000) in paragraph at lines 210--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 228--242
+Underfull \hbox (badness 10000) in paragraph at lines 268--282
 
  []
 
@@ -577,40 +593,108 @@ Underfull \hbox (badness 10000) in paragraph at lines 228--242
 <Captura.png, id=38, 621.07031pt x 327.47343pt>
 File: Captura.png Graphic file (type png)
 <use Captura.png>
-Package pdftex.def Info: Captura.png  used on input line 265.
+Package pdftex.def Info: Captura.png  used on input line 305.
 (pdftex.def)             Requested size: 446.26999pt x 235.306pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--296
+Underfull \hbox (badness 10000) in paragraph at lines 317--336
 
  []
 
 [3 <./Captura.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 324--336
+Underfull \hbox (badness 10000) in paragraph at lines 364--376
 
  []
 
 [4]
-<Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf, id=56, 469.755pt x 325.215p
-t>
+<Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf, id=56, 469.755pt x 216.81pt
+>
 File: Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
 
 <use Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf>
 Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf  use
-d on input line 396.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[5 <./Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf>] (Trabajo.aux)
+d on input line 436.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Trabajo_files/figure-latex/unnamed-chunk-12-1.pdf, id=57, 469.755pt x 180.675p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-12-1.pdf  use
+d on input line 453.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+<Trabajo_files/figure-latex/unnamed-chunk-13-1.pdf, id=58, 469.755pt x 180.675p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-13-1.pdf  use
+d on input line 455.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+[5 <./Trabajo_files/figure-latex/unnamed-chunk-11-1.pdf> <./Trabajo_files/figur
+e-latex/unnamed-chunk-12-1.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-14-1.pdf, id=75, 469.755pt x 180.675p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-14-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-14-1.pdf  use
+d on input line 457.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+<Trabajo_files/figure-latex/unnamed-chunk-15-1.pdf, id=76, 469.755pt x 180.675p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-15-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-15-1.pdf  use
+d on input line 459.
+(pdftex.def)             Requested size: 469.75386pt x 180.67455pt.
+[6 <./Trabajo_files/figure-latex/unnamed-chunk-13-1.pdf> <./Trabajo_files/figur
+e-latex/unnamed-chunk-14-1.pdf> <./Trabajo_files/figure-latex/unnamed-chunk-15-
+1.pdf>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
+68.
+(C:\Users\Samuel\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+<Trabajo_files/figure-latex/unnamed-chunk-17-1.pdf, id=97, 469.755pt x 216.81pt
+>
+File: Trabajo_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-17-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-17-1.pdf  use
+d on input line 477.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Trabajo_files/figure-latex/unnamed-chunk-18-1.pdf, id=98, 469.755pt x 216.81pt
+>
+File: Trabajo_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-18-1.pdf  use
+d on input line 479.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+[7 <./Trabajo_files/figure-latex/unnamed-chunk-17-1.pdf> <./Trabajo_files/figur
+e-latex/unnamed-chunk-18-1.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf, id=117, 469.755pt x 216.81p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf  use
+d on input line 503.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+[8 <./Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf>] (Trabajo.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 12665 strings out of 478864
- 192896 string characters out of 2848186
- 537537 words of memory out of 3000000
- 30254 multiletter control sequences out of 15000+600000
- 451393 words of font info for 105 fonts, out of 8000000 for 9000
+ 13273 strings out of 478864
+ 204526 string characters out of 2848186
+ 547506 words of memory out of 3000000
+ 30826 multiletter control sequences out of 15000+600000
+ 452623 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,80p,723b,398s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,80p,723b,399s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{
 C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/
 Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Us
@@ -619,10 +703,12 @@ sers/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/
 Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
-:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb>
-Output written on Trabajo.pdf (6 pages, 1298104 bytes).
+:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><
+C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb
+>
+Output written on Trabajo.pdf (9 pages, 1440206 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 28754 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 194 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 28789 words of extra memory for PDF output out of 29859 (max. 10000000)
 
