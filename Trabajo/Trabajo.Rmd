@@ -677,7 +677,7 @@ plotdata <- spider_wide %>%
   mutate_at(vars(-group),
             funs(rescale))
 
-#quiero hacer un diagrama de araña pero de momento no me sale
+#quiero hacer un diagrama de araña pero de momento no me saleeee
 ```
 
 
