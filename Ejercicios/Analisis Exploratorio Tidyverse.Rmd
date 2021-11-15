@@ -1,6 +1,6 @@
 ---
 title: "Ejercicios de Análisis Exploratorio de Datos con Tidyverse"
-author: "Pau Vives,  Arnold Cruz, Samuel de Paúl"
+author: "Pau Vives,  Harold Cruz, Samuel de Paúl"
 date: "22/10/2021"
 output: pdf_document
 ---
@@ -83,11 +83,11 @@ outliers <- data %>%
 
 #deberíamos eliminarlo????
 ```
-Vemos que se trata del paciente PD04, de 75 años, que no tiene valores execsivamente altos ni de \textit{UPDRSIII} (escala generalizada en la que se mide la gravedad del Parkinson) ni de \textit{HY_scale} (un sistema de uso común para describir cómo progresan los síntomas de la enfermedad de Parkinson), por lo que no encontramos un motivo claro para éste valor tan aislado.
+Vemos que se trata del paciente PD04, de 75 años, que no tiene valores execsivamente altos ni de \textit{UPDRSIII} (escala generalizada en la que se mide la gravedad del Parkinson) ni de \textit{HY.scale} (un sistema de uso común para describir cómo progresan los síntomas de la enfermedad de Parkinson), por lo que no encontramos un motivo claro para éste valor tan aislado.
 
 **4. El análisis conjunto de una variable categórica y una cuantitativa. (2 puntos)**
 
-Para este apartado tomaremos la variable categórica \textit{HY_scale}, cuyo valor representa en qué fase del avance de los síntomas del Parkinson se encuentra cada paciente, y la variable cualitativa \textit{EST}, que mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. Los pacientes de la muestra que no tienen Parkinson están marcados con "-". Sustituíremos este símbolo por el 0, que será equivalente y más cómodo de manejar.
+Para este apartado tomaremos la variable categórica \textit{HY.scale}, cuyo valor representa en qué fase del avance de los síntomas del Parkinson se encuentra cada paciente, y la variable cualitativa \textit{EST}, que mide la heterogeneidad en el habla en términos de la ocurrencia de intérvalos de sonoridad, insonoridad, pausas y respiraciraciones. Los pacientes de la muestra que no tienen Parkinson están marcados con "-". Sustituíremos este símbolo por el 0, que será equivalente y más cómodo de manejar.
 
 ```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message=FALSE}
 library(ggridges)

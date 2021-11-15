@@ -16,6 +16,12 @@ library(scales)
 library(RColorBrewer)
 library(patchwork)
 library(ggridges)
+library(factoextra)
+library(cluster)
+library(ggalt)
+library(tidyr)
+#install.packages("devtools")
+#devtools::install_github("ricardo-bion/ggradar")
 ```
 \begin{titlepage}
 \centering
@@ -607,4 +613,140 @@ p2_nomed <- ggplot(data_nomed[1:80, ],
 p1_nomed+p2_nomed
 ```
 \textbf{[...] (no sé si sirve de algo)}
+
+```{r}
+plotdata <- data2[data2$sex == "BOTH",]
+plotdata <- plotdata[18:102,]
+# plot pop at risk by year, for each region
+ggplot(plotdata, aes(x=year, y = incidence_rate)) +
+  geom_line(color="grey") +
+  geom_point(color="blue") +
+  facet_wrap(~region) + 
+  theme_minimal(base_size = 9) +
+  theme(axis.text.x = element_text(angle = 45, 
+                                   hjust = 1)) +
+  labs(title = "Evolución del Ratio de incidencia",
+       x = "Año",
+       y = "Ratio de Incidencia")
+```
+```{r}
+# subset data
+plotdata2 <- filter(data2,
+                        sex == "BOTH"  &
+                        year %in% c(2004, 2020)) %>%
+  select(region, year, pop_at_risk)
+
+# convert data to wide format
+plotdata2_wide <- spread(plotdata2, year, pop_at_risk)
+names(plotdata2_wide) <- c("region", "y2004", "y2020")
+
+# create dumbbell plot
+ggplot(plotdata2_wide[2:6,], 
+       aes(y = region,
+           x = y2004,
+           xend = y2020)) +  
+  geom_dumbbell(size = 1.2,
+                size_x = 3, 
+                size_xend = 3,
+                colour = "grey", 
+                colour_x = "blue", 
+                colour_xend = "red") +
+  theme_minimal() + 
+  labs(title = "Cambio en la Población de Riesgo",
+       subtitle = "2004 to 2020",
+       x = "Población en Riesgo",
+       y = "Región")
+```
+```{r}
+#Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
+
+park <- colMeans(data[data$disease == "PD", 40:63])
+rbd <- colMeans(data[data$disease == "RBD", 40:63])
+control <- colMeans(data[data$disease == "HC", 40:63])
+
+spider = tibble(park = park,
+                rdb = rbd,
+                control = control)
+
+spider_wide <-lapply(spider_wide ,as.numeric)
+spider_wide <- cbind(c("PD", "RBD", "HC"), spider_wide)
+names(spider_wide) = c("Disease","EST", "RST", "AST", "DPI", "DVI", "GVI", "DUS", "DUF", "RLR", "PIR", "RSR", "LSE", "EST-M", "RST-M", "AST-M", "DPI-M", "DVI-M", "GVI-M", "DUS-M", "DUF-M", "RLR-M", "PIR-M", "RSR-M", "LSE-M")
+
+plotdata <- spider_wide %>%
+  rename(group = Disease) %>%
+  mutate_at(vars(-group),
+            funs(rescale))
+
+#quiero hacer un diagrama de araña pero de momento no me sale
+```
+
+
+# Clustering en "grupos de riesgo":
+
+[NO HAY MANERA DE QUE SALGA ALGO DECENTE]
+
+```{r}
+data_speech <- data[,40:63]
+data_speech <-lapply(data_speech,as.numeric)
+data_speech_scaled <- scale(as_tibble(data_speech))
+
+#fviz_nbclust(x = data_speech_scaled, FUNcluster = kmeans, method = "wss",
+# diss = dist(data_speech_scaled, method = "manhattan")) +
+# geom_vline(xintercept = 3, linetype = 2)
+
+
+#pam_clusters <- pam(x = data_speech_scaled, k = 3, metric = "euclidean")
+#pam_clusters
+
+#clusplot(data_speech_scaled, pam_clusters$cluster, lines = 0, shade = TRUE, color = #TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
+
+hkmeans_cluster <- hkmeans(x = data_speech_scaled, hc.metric = "binary",
+ hc.method = "complete", k = 4)
+fviz_cluster(object = hkmeans_cluster, pallete = "jco", repel = TRUE) +
+ theme_bw() + labs(title = "Hierarchical k-means Cluster plot")
+
+table(hkmeans_cluster$cluster, data$disease, dnn = list("clusters", "enfermedad padecida"))
+
+#install.packages("vegan")
+library(vegan)
+bc.dist <- vegdist (as_tibble(data_speech), method = 'bray')
+bc.dist
+print (bc.dist, diag = TRUE)
+clust <- agnes (sqrt (bc.dist), method = 'ward')
+plot (clust, which.plot = 2)
+groups <- cutree (clust, k = 4)
+groups
+table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
+clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
+```
+```{r}
+#install.packages("pheatmap")
+library("pheatmap")
+pheatmap(as_tibble(data_speech), scale = "row")
+#vaya ñordo
+
+# Pairwise correlation between samples (columns)
+cols.cor <- cor(as_tibble(data_speech), use = "pairwise.complete.obs", method = "pearson")
+# Pairwise correlation between rows (genes)
+rows.cor <- cor(t(as_tibble(data_speech)), use = "pairwise.complete.obs", method = "pearson")
+
+# Plot the heatmap
+library("pheatmap")
+pheatmap(
+  as_tibble(data_speech), scale = "row", 
+  clustering_distance_cols = as.dist(1 - cols.cor),
+  clustering_distance_rows = as.dist(1 - rows.cor)
+  )
+#QUÉ ES ESTO XDD
+
+dist2 = function(x) as.dist(1-cor(t(x), method="pearson"))
+hola <- hclust(dist2(as_tibble(data_speech)), method="ward.D")
+plot (hola, which.plot = 2)
+groups <- cutree (hola, k = 4)
+groups
+#clusplot(as_tibble(data_speech), hola)
+table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
+clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
+```
+
 

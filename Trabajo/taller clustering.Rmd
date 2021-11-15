@@ -1,0 +1,125 @@
+---
+title: "clustering"
+author: "Samuel de Paúl"
+date: "9/11/2021"
+output: pdf_document
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(knitr)
+library(magick) #Para la visualización de imágenes
+library(dplyr)
+library(ggpol)
+library(scales)
+library(RColorBrewer)
+library(patchwork)
+library(ggridges)
+data <- read.csv("dataset.csv")
+data <- as_tibble(data)
+```
+
+
+En el dataset original las variables tienen nombres muy largos y engorrosos por lo que primero las renombraremos, para poder trabajar con ellas con mas facilidad, y a continuación detallaremos la información que aporta cada una.
+
+```{r, echo = FALSE}
+names(data)[1] <- "code"
+names(data)[2] <- "age"
+names(data)[3] <- "gender"
+names(data)[4] <- "history"
+names(data)[5] <- "onset"
+names(data)[6] <- "duration"
+names(data)[7] <- "antidepressant"
+names(data)[8] <- "antiparkinsonian"
+names(data)[9] <- "antipsychotic"
+names(data)[10] <- "benzodiazepine"
+names(data)[11] <- "levodopa"
+names(data)[12] <- "clonazepam"
+names(data)[13] <- "HY_scale"
+names(data)[14] <- "UPDRSIII"
+```
+
+```{r}
+#Clustering
+
+set.seed(101)
+#Omitimos el uso de la variable levodopa porque solo toma el valor 0
+datos = data[c("onset", "duration", "clonazepam", "UPDRSIII")]
+datos <- datos[1:80,]
+
+datos$onset = as.numeric(datos$onset)
+datos$duration = as.numeric(datos$duration)
+datos$clonazepam = as.numeric(datos$clonazepam)
+datos$UPDRSIII = as.numeric(datos$UPDRSIII)
+
+datos1 <- datos 
+datos <- scale(datos)
+
+#install.packages("factoextra")
+library(factoextra)
+fviz_nbclust(x = datos, FUNcluster = kmeans, method = "wss",
+ diss = dist(datos, method = "euclidean")) +
+ geom_vline(xintercept = 5, linetype = 2)
+
+
+km_clusters <- kmeans(x = datos, centers = 5, nstart = 50)
+km_clusters
+```
+
+
+```{r}
+#Visualizaci?n de los clusters
+#install.packages("cluster")
+library(cluster)
+clusplot(datos, km_clusters$cluster, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
+```
+
+
+
+```{r}
+#K-medoides
+library(ggplot2)
+set.seed(123)
+
+library(factoextra)
+fviz_nbclust(x = datos, FUNcluster = pam, method = "wss",
+ diss = dist(datos, method = "euclidean")) +
+ geom_vline(xintercept = 5, linetype = 2)
+
+pam_clusters <- pam(x = datos, k = 5, metric = "euclidean")
+pam_clusters
+
+clusplot(datos, pam_clusters$cluster, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = TRUE, span = TRUE, main = "Clustering")
+
+
+#Observamos qué tan alta es la puntuación en la escala UPDRSIII en función del cluster al que ha sido asociado cada paciente:
+datos<- cbind(cluster = pam_clusters$cluster, datos)
+datos = as_tibble(datos)
+
+clus_1 = datos1[datos$cluster == 1,]
+clus_2 = datos1[datos$cluster == 2,]
+clus_3 = datos1[datos$cluster == 3,]
+clus_4 = datos1[datos$cluster == 4,]
+clus_5 = datos1[datos$cluster == 5,]
+
+
+mean1 = mean(clus_1$UPDRSIII)
+mean2 = mean(clus_2$UPDRSIII)
+mean3 = mean(clus_3$UPDRSIII)
+mean4 = mean(clus_4$UPDRSIII)
+mean5 = mean(clus_5$UPDRSIII)
+
+means_UPDRSIII = c(mean1,mean2,mean3,mean4,mean5)
+clus_updrs_mean = cbind(c(1,2,3,4,5), means_UPDRSIII)
+clus_updrs_mean = as_tibble(clus_updrs_mean)
+
+barplot(clus_updrs_mean$means_UPDRSIII, clus_updrs_mean$V1, xlab="Cluster", ylab = "Media de las puntuaciones de UPDRSIII")
+```
+
+
+
+Vemos que la mayoría de los datos se pueden diferenciar en función de la cantidad de clonazepam que toman y por el puntuación de la variable UPDRSIII, tienen mayor variabilidad. Por lo que los clusters se forman en gran medida por estas dos variables. Es notable que en el cluster 2 los pacientes tienen un puntuaje mucho más alto.
+
+
+
+
