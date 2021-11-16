@@ -659,9 +659,12 @@ ggplot(plotdata2_wide[2:6,],
        x = "Población en Riesgo",
        y = "Región")
 ```
-```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
-#Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
 
+(Normal)
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE,fig.show = "hold", fig.height = 7, fig.align = "center", fig.show='hide'}
+#Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
+par(mfrow=c(1,3))
 park <- colMeans(data[data$disease == "PD", 40:63])
 rbd <- colMeans(data[data$disease == "RBD", 40:63])
 control <- colMeans(data[data$disease == "HC", 40:63])
@@ -675,70 +678,38 @@ spider_transpose <- as_tibble(cbind(nms = names(spider), t(spider)))
 names(spider_transpose) = c("Disease","EST", "RST", "AST", "DPI", "DVI", "GVI", "DUS", "DUF", "RLR", "PIR", "RSR", "LSE", "EST-M", "RST-M", "AST-M", "DPI-M", "DVI-M", "GVI-M", "DUS-M", "DUF-M", "RLR-M", "PIR-M", "RSR-M", "LSE-M")
 
 spider_transpose[] <- lapply(spider_transpose, function(x) as.numeric(x))
-spider_transpose$Disease = c("park", "rbd", "control")
+spider_transpose$Disease = c("Parkinson", "RBD", "Controles Sanos")
 
 plotdata3 <- spider_transpose %>%
   rename(group = Disease) %>%
   mutate_at(vars(-group),
             funs(rescale))
 
-# generate radar chart
-sp_PD1 <- ggradar(plotdata3[1,0:13], 
+plotdata3[,1:13] %>%
+  ggradar(base.size = 8,
         grid.label.size = 4,
         axis.label.size = 4, 
         group.point.size = 2,
         group.line.width = 1,
-        legend.text.size= 4) +
-  labs(title = "Pacientes con Parkinson")
-
-sp_RBD1 <- ggradar(plotdata3[2,0:13], 
-        grid.label.size = 4,
-        axis.label.size = 4, 
-        group.point.size = 5,
-        group.line.width = 1.5,
-        legend.text.size= 10) +
-  labs(title = "Pacientes con Trastorno del Sueño REM")
-
-sp_HC1 <- ggradar(plotdata3[3,0:13], 
-        grid.label.size = 4,
-        axis.label.size = 4, 
-        group.point.size = 5,
-        group.line.width = 1.5,
-        legend.text.size= 10) +
-  labs(title = "Pacientes sanos")
-
-sp_PD1 + sp_RBD1 +sp_HC1
+        legend.text.size= 2,
+        group.colours = c("lightgreen", "red", "orange"),
+        plot.legend = FALSE) +
+    facet_wrap(group~.)
 ```
 
-```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
-sp_PD2 <- ggradar(plotdata3[1,14:25], 
+(Monólogo)
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.show = "hold", fig.height = 7, fig.align = "center", }
+plotdata3[,c(1,14:25)] %>%
+  ggradar(base.size = 8,
         grid.label.size = 4,
         axis.label.size = 4, 
-        group.point.size = 5,
-        group.line.width = 1.5,
-        legend.text.size= 10) +
-  labs(title = "Pacientes con Parkinson")
-
-sp_RBD2 <- ggradar(plotdata3[2,14:25], 
-        grid.label.size = 4,
-        axis.label.size = 4, 
-        group.point.size = 5,
-        group.line.width = 1.5,
-        legend.text.size= 10) +
-  labs(title = "Pacientes con Trastorno del Sueño REM (Monólogo)")
-
-sp_HC2 <- ggradar(plotdata3[3,14:25], 
-        grid.label.size = 4,
-        axis.label.size = 4, 
-        group.point.size = 5,
-        group.line.width = 1.5,
-        legend.text.size= 10) +
-  labs(title = "Pacientes sanos (Monólogo)")
-
-sp_PD2 + sp_RBD2 +sp_HC2
-
-
-#quiero hacer un diagrama de araña pero de momento no me saleeee
+        group.point.size = 2,
+        group.line.width = 1,
+        legend.text.size= 2,
+        group.colours = c("lightgreen", "red", "orange"),
+        plot.legend = FALSE) +
+    facet_wrap(group~.)
 ```
 
 
@@ -767,6 +738,16 @@ fviz_cluster(object = hkmeans_cluster, pallete = "jco", repel = TRUE) +
  theme_bw() + labs(title = "Hierarchical k-means Cluster plot")
 
 table(hkmeans_cluster$cluster, data$disease, dnn = list("clusters", "enfermedad padecida"))
+
+data_speech_scaled <- data_speech_scaled[hkmeans_cluster$cluster != 2,]
+#AQUÍ HEMOS QUITADO LOS DATOS DEL CLUSTER SEPARADO QUE SON "OUTLIERS"
+
+hkmeans_cluster2 <- hkmeans(x = data_speech_scaled, hc.metric = "binary",
+ hc.method = "complete", k = 4)
+fviz_cluster(object = hkmeans_cluster2, pallete = "jco", repel = TRUE) +
+ theme_bw() + labs(title = "Hierarchical k-means Cluster plot")
+
+table(hkmeans_cluster2$cluster, data[hkmeans_cluster$cluster != 2,]$disease, dnn = list("clusters", "enfermedad padecida"))
 
 #install.packages("vegan")
 library(vegan)
