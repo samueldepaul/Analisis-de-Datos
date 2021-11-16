@@ -22,6 +22,7 @@ library(ggalt)
 library(tidyr)
 #install.packages("devtools")
 #devtools::install_github("ricardo-bion/ggradar")
+library(ggradar)
 ```
 \begin{titlepage}
 \centering
@@ -613,8 +614,9 @@ p2_nomed <- ggplot(data_nomed[1:80, ],
 p1_nomed+p2_nomed
 ```
 \textbf{[...] (no sé si sirve de algo)}
+\newpage
 
-```{r}
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
 plotdata <- data2[data2$sex == "BOTH",]
 plotdata <- plotdata[18:102,]
 # plot pop at risk by year, for each region
@@ -629,7 +631,7 @@ ggplot(plotdata, aes(x=year, y = incidence_rate)) +
        x = "Año",
        y = "Ratio de Incidencia")
 ```
-```{r}
+```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
 # subset data
 plotdata2 <- filter(data2,
                         sex == "BOTH"  &
@@ -657,7 +659,7 @@ ggplot(plotdata2_wide[2:6,],
        x = "Población en Riesgo",
        y = "Región")
 ```
-```{r}
+```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
 #Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
 
 park <- colMeans(data[data$disease == "PD", 40:63])
@@ -668,14 +670,73 @@ spider = tibble(park = park,
                 rdb = rbd,
                 control = control)
 
-spider_wide <-lapply(spider_wide ,as.numeric)
-spider_wide <- cbind(c("PD", "RBD", "HC"), spider_wide)
-names(spider_wide) = c("Disease","EST", "RST", "AST", "DPI", "DVI", "GVI", "DUS", "DUF", "RLR", "PIR", "RSR", "LSE", "EST-M", "RST-M", "AST-M", "DPI-M", "DVI-M", "GVI-M", "DUS-M", "DUF-M", "RLR-M", "PIR-M", "RSR-M", "LSE-M")
+spider_transpose <- as_tibble(cbind(nms = names(spider), t(spider)))
 
-plotdata <- spider_wide %>%
+names(spider_transpose) = c("Disease","EST", "RST", "AST", "DPI", "DVI", "GVI", "DUS", "DUF", "RLR", "PIR", "RSR", "LSE", "EST-M", "RST-M", "AST-M", "DPI-M", "DVI-M", "GVI-M", "DUS-M", "DUF-M", "RLR-M", "PIR-M", "RSR-M", "LSE-M")
+
+spider_transpose[] <- lapply(spider_transpose, function(x) as.numeric(x))
+spider_transpose$Disease = c("park", "rbd", "control")
+
+plotdata3 <- spider_transpose %>%
   rename(group = Disease) %>%
   mutate_at(vars(-group),
             funs(rescale))
+
+# generate radar chart
+sp_PD1 <- ggradar(plotdata3[1,0:13], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 2,
+        group.line.width = 1,
+        legend.text.size= 4) +
+  labs(title = "Pacientes con Parkinson")
+
+sp_RBD1 <- ggradar(plotdata3[2,0:13], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 5,
+        group.line.width = 1.5,
+        legend.text.size= 10) +
+  labs(title = "Pacientes con Trastorno del Sueño REM")
+
+sp_HC1 <- ggradar(plotdata3[3,0:13], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 5,
+        group.line.width = 1.5,
+        legend.text.size= 10) +
+  labs(title = "Pacientes sanos")
+
+sp_PD1 + sp_RBD1 +sp_HC1
+```
+
+```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
+sp_PD2 <- ggradar(plotdata3[1,14:25], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 5,
+        group.line.width = 1.5,
+        legend.text.size= 10) +
+  labs(title = "Pacientes con Parkinson")
+
+sp_RBD2 <- ggradar(plotdata3[2,14:25], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 5,
+        group.line.width = 1.5,
+        legend.text.size= 10) +
+  labs(title = "Pacientes con Trastorno del Sueño REM (Monólogo)")
+
+sp_HC2 <- ggradar(plotdata3[3,14:25], 
+        grid.label.size = 4,
+        axis.label.size = 4, 
+        group.point.size = 5,
+        group.line.width = 1.5,
+        legend.text.size= 10) +
+  labs(title = "Pacientes sanos (Monólogo)")
+
+sp_PD2 + sp_RBD2 +sp_HC2
+
 
 #quiero hacer un diagrama de araña pero de momento no me saleeee
 ```
@@ -685,7 +746,7 @@ plotdata <- spider_wide %>%
 
 [NO HAY MANERA DE QUE SALGA ALGO DECENTE]
 
-```{r}
+```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE}
 data_speech <- data[,40:63]
 data_speech <-lapply(data_speech,as.numeric)
 data_speech_scaled <- scale(as_tibble(data_speech))
@@ -710,16 +771,17 @@ table(hkmeans_cluster$cluster, data$disease, dnn = list("clusters", "enfermedad 
 #install.packages("vegan")
 library(vegan)
 bc.dist <- vegdist (as_tibble(data_speech), method = 'bray')
-bc.dist
-print (bc.dist, diag = TRUE)
+#bc.dist
+#print (bc.dist, diag = TRUE)
 clust <- agnes (sqrt (bc.dist), method = 'ward')
 plot (clust, which.plot = 2)
 groups <- cutree (clust, k = 4)
-groups
-table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
+#groups
+#table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
 clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
 ```
-```{r}
+
+```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE}
 #install.packages("pheatmap")
 library("pheatmap")
 pheatmap(as_tibble(data_speech), scale = "row")

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  13 NOV 2021 13:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.10.2)  16 NOV 2021 11:18
 entering extended mode
 **./Trabajo.tex
 (Trabajo.tex
@@ -682,19 +682,117 @@ File: Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf  use
 d on input line 503.
 (pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
-[8 <./Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf>] (Trabajo.aux)
+[8 <./Trabajo_files/figure-latex/unnamed-chunk-19-1.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-20-1.pdf, id=128, 469.755pt x 216.81p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-20-1.pdf  use
+d on input line 507.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Trabajo_files/figure-latex/unnamed-chunk-21-1.pdf, id=129, 469.755pt x 216.81p
+t>
+File: Trabajo_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-21-1.pdf  use
+d on input line 509.
+(pdftex.def)             Requested size: 469.75386pt x 216.80946pt.
+<Trabajo_files/figure-latex/unnamed-chunk-22-1.pdf, id=130, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-22-1.pdf  use
+d on input line 511.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[9 <./Trabajo_files/figure-latex/unnamed-chunk-20-1.pdf> <./Trabajo_files/figur
+e-latex/unnamed-chunk-21-1.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-23-1.pdf, id=145, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-23-1.pdf  use
+d on input line 513.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[10 <./Trabajo_files/figure-latex/unnamed-chunk-22-1.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-24-1.pdf, id=158, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-24-1.pdf  use
+d on input line 530.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Trabajo_files/figure-latex/unnamed-chunk-24-2.pdf, id=159, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-24-2.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-24-2.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-24-2.pdf  use
+d on input line 530.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Trabajo_files/figure-latex/unnamed-chunk-24-3.pdf, id=160, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-24-3.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-24-3.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-24-3.pdf  use
+d on input line 530.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[11 <./Trabajo_files/figure-latex/unnamed-chunk-23-1.pdf>] [12 <./Trabajo_files
+/figure-latex/unnamed-chunk-24-1.pdf>] [13 <./Trabajo_files/figure-latex/unname
+d-chunk-24-2.pdf>]
+<Trabajo_files/figure-latex/unnamed-chunk-25-1.pdf, id=199, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-25-1.pdf  use
+d on input line 548.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Trabajo_files/figure-latex/unnamed-chunk-25-2.pdf, id=200, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-25-2.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-25-2.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-25-2.pdf  use
+d on input line 548.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Trabajo_files/figure-latex/unnamed-chunk-25-3.pdf, id=201, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-25-3.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-25-3.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-25-3.pdf  use
+d on input line 548.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<Trabajo_files/figure-latex/unnamed-chunk-25-4.pdf, id=202, 469.755pt x 325.215
+pt>
+File: Trabajo_files/figure-latex/unnamed-chunk-25-4.pdf Graphic file (type pdf)
+
+<use Trabajo_files/figure-latex/unnamed-chunk-25-4.pdf>
+Package pdftex.def Info: Trabajo_files/figure-latex/unnamed-chunk-25-4.pdf  use
+d on input line 548.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[14 <./Trabajo_files/figure-latex/unnamed-chunk-24-3.pdf>] [15 <./Trabajo_files
+/figure-latex/unnamed-chunk-25-1.pdf>] [16 <./Trabajo_files/figure-latex/unname
+d-chunk-25-2.pdf>] [17 <./Trabajo_files/figure-latex/unnamed-chunk-25-3.pdf>] [
+18 <./Trabajo_files/figure-latex/unnamed-chunk-25-4.pdf>] (Trabajo.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13273 strings out of 478864
- 204526 string characters out of 2848186
- 547506 words of memory out of 3000000
- 30826 multiletter control sequences out of 15000+600000
+ 13386 strings out of 478864
+ 209875 string characters out of 2848186
+ 547567 words of memory out of 3000000
+ 30916 multiletter control sequences out of 15000+600000
  452623 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,6n,80p,723b,399s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,80p,723b,401s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{
 C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/
 Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Us
@@ -704,11 +802,12 @@ Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C
 :/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><
-C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pfb
->
-Output written on Trabajo.pdf (9 pages, 1440593 bytes).
+C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
+<C:/Users/Samuel/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtti10.pf
+b>
+Output written on Trabajo.pdf (19 pages, 1657636 bytes).
 PDF statistics:
- 194 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
- 28789 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 329 PDF objects out of 1000 (max. 8388607)
+ 37 named destinations out of 1000 (max. 500000)
+ 28852 words of extra memory for PDF output out of 29859 (max. 10000000)
 
