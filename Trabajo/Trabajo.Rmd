@@ -554,8 +554,10 @@ Pero como podemos ver en el gráfico de la izquierda, no parece que exista tal t
 
 ```{r}
 ggplot(data) +
-  geom_smooth(mapping = aes(x = age, y = EST, linetype = disease))
+  geom_smooth(mapping = aes(x = age, y = data$DPI, color = disease), se = FALSE)
 ```
+
+No se que quiere decir pero parece que solo sube pa los enfermitos
 
 
 La variable \textit{HY.scale} nos indica el grado de avance de los síntomas del Parkinson. Vamos a observar si los síntomas avanzan más rápido dependiendo de la edad o sexo del paciente:
