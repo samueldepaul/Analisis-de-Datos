@@ -291,6 +291,9 @@ Una vez hecho esto, notamos que tenemos muchas variables en que aparecen guiones
 #Transformamos las variables pertinentes en factores
 data$gender = as_factor(data$gender)
 data$history = as_factor(data$history)
+data$onset = as.integer(data$onset)
+data$UPDRSIII = as.integer(data$UPDRSIII)
+data$duration = as.integer(data$duration)
 data$antidepressant = as_factor(data$antidepressant)
 data$antiparkinsonian = as_factor(data$antiparkinsonian)
 data$antipsychotic = as_factor(data$antipsychotic)
@@ -526,9 +529,34 @@ p1_dpi + p2_dpi
 
 Queremos comprobar también si las personas que padecen Parkinson, tienen una puntuación más alta en la escala de UPDRSIII que aquellas que padecen trastorno de la conducta del sueño REM.
 
-```{r}
-#o igual no, no sé pa qué
+```{r,echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+datos2 = data[1:80,]
+datos2$UPDRSIII = as.numeric(datos2$UPDRSIII)
+ggplot(datos2, aes(x = disease, y = UPDRSIII, fill = disease)) +
+  geom_boxplot()
 ```
+
+Y como intuíamos, los pacientes con Parkinson tienen valores más altos en este test que los pacientes que padecen transtorno de sueño (basta fijarse en que la media de los primeros queda por encima del valor límite (?) del otro grupo). Además, también podemos fijarnos en que los pacientes con Párkinson tienen una dispersión considerable, mucho mayor que en el grupo de pacientes con transtorno de sueño. 
+
+Podríamos pensar que la causa de la alta dispersión de los resultados del test en pacientes de Parkinson se deba a una diferencia muy marcada en la edad de los pacientes seleccionados. Por tanto podemos comprobar cómo se han distribuido los resultados en función de la edad de los pacientes, para ver si hay una tendencia marcada.
+
+```{r}
+p1 = ggplot(datos2, aes(age, UPDRSIII))+
+  geom_point()
+
+p2 = ggplot(datos2, aes(duration, UPDRSIII))+
+  geom_point()
+
+p1+p2
+```
+
+Pero como podemos ver en el gráfico de la izquierda, no parece que exista tal tendencia. Además, en el gráfico de la derecha hemos mirado a ver si el resultado del test se ve afectado por el tiempo total que llevan los pacientes con dicha enfermedad y tampoco parece existir ninguna tendencia ("no se si deberíamos explicar de onde sale la variable Dif pero la había creado solo para esto").
+
+```{r}
+ggplot(data) +
+  geom_smooth(mapping = aes(x = age, y = EST, linetype = disease))
+```
+
 
 La variable \textit{HY.scale} nos indica el grado de avance de los síntomas del Parkinson. Vamos a observar si los síntomas avanzan más rápido dependiendo de la edad o sexo del paciente:
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
@@ -662,7 +690,7 @@ ggplot(plotdata2_wide[2:6,],
 
 (Normal)
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE,fig.show = "hold", fig.height = 7, fig.align = "center", fig.show='hide'}
+```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.width=10, fig.width=6, fig.align = "center", fig.show = "hold", fig.show='hide', results='hide'}
 #Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
 par(mfrow=c(1,3))
 park <- colMeans(data[data$disease == "PD", 40:63])
@@ -685,39 +713,53 @@ plotdata3 <- spider_transpose %>%
   mutate_at(vars(-group),
             funs(rescale))
 
+png(file="plot1.png", width = 640 ,height = 320, res = 100)
 plotdata3[,1:13] %>%
   ggradar(base.size = 8,
-        grid.label.size = 4,
-        axis.label.size = 4, 
+        grid.label.size = 2.5,
+        axis.label.size = 3, 
         group.point.size = 2,
         group.line.width = 1,
         legend.text.size= 2,
         group.colours = c("lightgreen", "red", "orange"),
         plot.legend = FALSE) +
     facet_wrap(group~.)
-```
+dev.off()
 
-(Monólogo)
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.show = "hold", fig.height = 7, fig.align = "center", }
+png(file="plot2.png", width = 640 ,height = 320)
 plotdata3[,c(1,14:25)] %>%
   ggradar(base.size = 8,
-        grid.label.size = 4,
-        axis.label.size = 4, 
+        grid.label.size = 2.5,
+        axis.label.size = 3, 
         group.point.size = 2,
         group.line.width = 1,
         legend.text.size= 2,
         group.colours = c("lightgreen", "red", "orange"),
         plot.legend = FALSE) +
     facet_wrap(group~.)
+dev.off()
 ```
+
+```{r, echo = FALSE}
+par(mfrow=c(2,1))
+Captura <- image_read("plot1.png")
+image_write(Captura, "plot1.png")
+knitr::include_graphics(c("plot1.png"))
+
+Captura <- image_read("plot2.png")
+image_write(Captura, "plot2.png")
+knitr::include_graphics(c("plot2.png"))
+```
+
+
 
 
 # Clustering en "grupos de riesgo":
 
 [NO HAY MANERA DE QUE SALGA ALGO DECENTE]
 
-```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE}
+```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
 data_speech <- data[,40:63]
 data_speech <-lapply(data_speech,as.numeric)
 data_speech_scaled <- scale(as_tibble(data_speech))
