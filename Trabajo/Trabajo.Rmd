@@ -708,7 +708,7 @@ p2_nomed <- ggplot(data_nomed[1:80, ],
 
 p1_nomed+p2_nomed
 ```
-\textbf{[...] (no sé si sirve de algo)}
+\textbf{[...] (no sé si sirve de algo la verdad)}
 \newpage
 
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
