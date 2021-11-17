@@ -662,7 +662,7 @@ ggplot(plotdata2_wide[2:6,],
 
 (Normal)
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE,fig.show = "hold", fig.height = 7, fig.align = "center", fig.show='hide'}
+```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.width=10, fig.width=6, fig.align = "center", fig.show = "hold", fig.show='hide', results='hide'}
 #Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
 par(mfrow=c(1,3))
 park <- colMeans(data[data$disease == "PD", 40:63])
@@ -685,39 +685,53 @@ plotdata3 <- spider_transpose %>%
   mutate_at(vars(-group),
             funs(rescale))
 
+png(file="plot1.png", width = 640 ,height = 320, res = 100)
 plotdata3[,1:13] %>%
   ggradar(base.size = 8,
-        grid.label.size = 4,
-        axis.label.size = 4, 
+        grid.label.size = 2.5,
+        axis.label.size = 3, 
         group.point.size = 2,
         group.line.width = 1,
         legend.text.size= 2,
         group.colours = c("lightgreen", "red", "orange"),
         plot.legend = FALSE) +
     facet_wrap(group~.)
-```
+dev.off()
 
-(Monólogo)
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.show = "hold", fig.height = 7, fig.align = "center", }
+png(file="plot2.png", width = 640 ,height = 320)
 plotdata3[,c(1,14:25)] %>%
   ggradar(base.size = 8,
-        grid.label.size = 4,
-        axis.label.size = 4, 
+        grid.label.size = 2.5,
+        axis.label.size = 3, 
         group.point.size = 2,
         group.line.width = 1,
         legend.text.size= 2,
         group.colours = c("lightgreen", "red", "orange"),
         plot.legend = FALSE) +
     facet_wrap(group~.)
+dev.off()
 ```
+
+```{r, echo = FALSE}
+par(mfrow=c(2,1))
+Captura <- image_read("plot1.png")
+image_write(Captura, "plot1.png")
+knitr::include_graphics(c("plot1.png"))
+
+Captura <- image_read("plot2.png")
+image_write(Captura, "plot2.png")
+knitr::include_graphics(c("plot2.png"))
+```
+
+
 
 
 # Clustering en "grupos de riesgo":
 
 [NO HAY MANERA DE QUE SALGA ALGO DECENTE]
 
-```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE}
+```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
 data_speech <- data[,40:63]
 data_speech <-lapply(data_speech,as.numeric)
 data_speech_scaled <- scale(as_tibble(data_speech))
