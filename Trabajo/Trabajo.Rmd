@@ -335,16 +335,18 @@ data$HY_scale[31:130] = NA
 data[81:130, 14:41] = NA
 #Ésta última instrucción convierte en NA todos los valores 
 #de las pruebas X18 - X31 en las filas de los pacientes sanos
+
 ```
 
 Las variables \textit{history}, \textit{onset} y \textit{duration} tienen \textit{NA's} a partir de la observación 81 ya que los pacientes 81-130 son los controles sanos y por tanto no tiene sentido tomar mediciones acerca de su enfermedad si no tienen ninguna. Similarmente, la variable \textit{HY.scale} toma el valor \textit{NA} a partir de la observación 31, ya que los pacientes 1-30 son los que padecen la enfermedad de Parkinson y la escala H&Y se utiliza para medir el avance de los síntomas de dicha enfermedad. 
 
 Finalmente, hay una gran concentración de \textit{NA}'s en las columnas correspondientes a las pruebas X18 - X30 de la escala UPDRS III, y esto se debe a que las pruebas sólo se han realizado a los pacientes que padecen la enfermedad de Parkinson o trastorno de conducta del sueño REM, es decir, en las primeras 80 observaciones.
 
-Con el objetivo de limpiar los datos lo máximo posible, eliminaremos algunas variables que no aportan información en absoluto. Durante la recogida de datos se tomaron datos de los pacientes que han resultado no ser útiles para la investigación. Las variables \textit{antiparkinsonian}, \textit{antipsychotic} y \textit{levodopa}, que miden si el paciente se medica con ciertos medicamentos, tienen el mismo valor para las 130 observaciones (No, No y 0mg/día respectivamente). De modo que las eliminamos del conjunto de datos por ser supérfluas.
+Con el objetivo de limpiar los datos lo máximo posible, eliminaremos algunas variables que no aportan información en absoluto. Durante la recogida de datos se tomaron datos de los pacientes que han resultado no ser útiles para la investigación. Las variables \textit{antiparkinsonian}, \textit{antipsychotic} y \textit{levodopa}, que miden si el paciente se medica con ciertos medicamentos, tienen el mismo valor para las 130 observaciones (No, No y 0mg/día respectivamente). De modo que las eliminamos del conjunto de datos por ser supérfluas. De la misma forma, eliminaremos la variable \textit{history} puesto que toma el valor de "No" en 77 de los 80 pacientes, y no nos será de utilidad puesto que no tenemos suficientes muestras.
 
 ```{r, echo = FALSE}
-data = select(data , -antiparkinsonian, -antipsychotic, -levodopa)
+data = select(data , -antiparkinsonian, -antipsychotic, -levodopa,-history)
+
 ```
 
 Otra cosa que nos facilitará trabajar con los datos será tener una variable que nos indique qué enfermedad padece un paciente (si es que padece alguna). Ésta información ya se encuentra en la variable \textit{code}, que nos da el código del paciente. Sin embargo, los códigos incluyen también un número indentificativo para el paciente por lo que no podemos trabajar con ésta variable. Lo que haremos será utilizar la función \textit{separate()} para dividir la variable \textit{code} en dos variables nuevas, una que conservará el mismo nombre y únicamente guardará el número asignado a cada paciente, y otra a la que llamaremos \textit{disease} que indicará qué enfermedad padece el paciente; enfermedad de Parkinson (EP), trastorno de conducta del sueño REM (RBD) o  si son controles sanos (HC).
@@ -390,121 +392,7 @@ p1+p2+p3
 ```
 Por tanto vemos claramente que las observaciones se tratan de pacientes de edades comprendidas mayormente entre 50 y 80 años, donde predominan los hombres (aproximadamente una mujer por cada 4 hombres). Además confirmamos la distribución por enfermedad padecida mencionada en la contextualización del trabajo; 50 controles sanos (HC), 30 pacientes que padecen enfermedad de Parkinson (PD) y 50 que padecen trastorno de la conducta del sueño REM (RBD).
 
-Ahora, lo que queremos hacer es, para cada una de las mediciones realizadas a los pacientes durante la lectura de un texto fonéticamente equilibrado y durante la exposición de un monólogo de 90 segundos, comparar los valores obtenidos en función de la variable \textit{disease}, es decir, comparar según si los pacientes son enfermos de Parkinson, de trastorno de conducta del sueño REM o controles sanos. (Representamos gráficamente aquellas variables en que se se aprecie una diferencia fácil de observar).
 
-```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, warning=FALSE, fig.align = "center"}
-# plot the distribution of salaries 
-# by rank using jittering
-#install.packages("ggpol")
-
-p1_rst <- ggplot(data, 
-       aes(x = disease, 
-           y = RST, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable RST", 
-       subtitle = "(Lectura de texto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(100,450)
-
-p2_rst <- ggplot(data, 
-       aes(x = disease, 
-           y = `RST-M`, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable RST", 
-       subtitle = "(Monólogo corto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(100,450)
-
-p1_rst + p2_rst 
-```
-
-```{r, echo = FALSE, warning=FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
-p1_dpi <- ggplot(data, 
-       aes(x = disease, 
-           y = DPI, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable DPI", 
-       subtitle = "(Lectura de texto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(50,650)
-
-p2_dpi <- ggplot(data, 
-       aes(x = disease, 
-           y = `DPI-M`, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable DPI", 
-       subtitle = "(Monólogo corto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(50,650)
-
-p1_dpi + p2_dpi
-```
-
-```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center", warning=FALSE}
-p1_dus <- ggplot(data, 
-       aes(x = disease, 
-           y = DUS, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable DUS", 
-       subtitle = "(Lectura de texto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(5,60)
-
-p2_dus <- ggplot(data, 
-       aes(x = disease, 
-           y = `DUS-M`, 
-           fill = disease)) +
-  geom_boxjitter(color="black",
-                 jitter.color = "darkgrey",
-                 errorbar.draw = TRUE) +
-  labs(title = "Variable DUS", 
-       subtitle = "(Monólogo corto)",
-       x = "",
-       y = "") +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  ylim(5,60)
-
-p1_dus + p2_dus
-```
-
-En los boxplots anteriores podemos ver que en una primera inspección no muy detallada de las variables, hay 3 en que se observa una diferencia entre los grupos.
-Empezamos analizando la variable $RST$. En el diagrama de cajas podemos ver que el valor medio de ésta variable es mayor para los pacientes sanos que para los enfermos (tanto de Párkinson como de Trastorno de la conducta del sueño REM). Esto ocurre tanto en las mediciones realizadas durante la lectura de un texto fonéticamente estandarizado y las realizadas durante un monólogo corto. Además, los outliers que se observan en los grupos PD y RBD se sitúan prácticamente en su totalidad, por debajo de la línea que marca $Q1-1.5*IRQ$
-
-En el la segunda figura analizamos la variable $DPI$. En éste caso destaca el hecho de que la media para el grupo de los pacientes sanos sea menor que la de los otros dos grupos de pacientes. Además, las observaciones de los grupos PD y RBD están más dispersas, cosa que aumenta el rango inter-cuartílico. Esto se aplica tanto a las mediciones de lectura como a las de monólogo.
-
-Finalmente, en la tercera figura se representa la variable $DUS$. De nuevo, observamos que, en la lectura como en el monólogo, el valor medio de ésta variable es menor para los pacientes sanos que para los pacientes que padecen Párkinson o Trastorno de la conducta del sueño REM. No observamos ninguna diferencia muy notable en cuanto a la dispersión de los datos.  
-\newpage
 La variable \textit{HY.scale} nos indica el grado de avance de los síntomas del Parkinson. Vamos a observar si los síntomas avanzan más rápido dependiendo de la edad o sexo del paciente:
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
 plotdata <- data[1:30,] %>%
@@ -551,35 +439,6 @@ Por lo tanto, en el primer gráfico vemos que, en lo que respecta al avance de l
 Por otra parte, en el segundo gráfico vemos, para cada valor en la escala H&Y, la distribución de las edades de los pacientes afectados. Se aprecia que los pacientes que están en los valores 2 y 2.5 de la escala H&Y tienen una distribución de edades muy parecida. Sin embargo, observamos claramente que los pacientes que están en el valor 1.5, es decir, los de síntomas más leves, tienen una edad significativamente más baja que los otros dos grupos. Así, constatamos que los pacientes más jóvenes presentan una sintomatología más leve.
 
 \newpage
-Tenemos un conjunto de variables ($X18, \ldots ,X31$) que se corresponden con las diferentes pruebas, la suma de cuyos resultados dará lugar a la variable genérica $UPDRSIII$. La puntuación de cada paciente en ésta escala consiste de la suma de las puntuaciones del paciente en cada una de las pruebas $X18, \ldots ,X31$. Queremos ver, a grandes rasgos, el aspecto que tienen éstas variables. Con éste fin mostramos el gráfico siguiente:
-```{r, echo = FALSE, fig.height=7}
-pruebas = data[1:80, 13:39]
-
-longer_pruebas <- pruebas %>%
-  pivot_longer(X18:X31, names_to = "prueba", values_to = "resultado")
-
-ggplot(data = longer_pruebas) +
-  geom_bar(mapping = aes(x = resultado, fill = as_factor(resultado)), stat="count") +
-  facet_wrap(vars(prueba), ncol = 4) +
-  labs(x = "Resultado (En una escala del 0 al 4)", y = "Frecuencia") +
-  theme(legend.position = "none") +
-  scale_fill_brewer(palette="Set2")
-
-```
-
-Vemos que en su mayoría las puntuaciones de los pacientes en cada prueba se distribuyen decrecientemente, en general, el mayor número de pacientes es valorado con un 0 y el número de pacientes decrece a medida que aumenta la puntuación. Esta distribución se debe a que, como el objetivo del estudio es determinar biomarcadores prematuros de la enfermedad del Parkinson, los pacientes analizados se caracterizan por no estar en un estado avanzado del desarrollo de los síntomas de la enfermedad. 
-
-Los resultados de las pruebas son similares entre ellos por lo que únicamente analizaremos en profundidad la variable $X21$, que consideramos de interés ya que representa el temblor de acción o postural, que consideramos que es una de las variables que más podría influir en la calidad de vida del paciente.
-
-```{r, echo = FALSE, message=FALSE, warning=FALSE}
-X21 = data[1:80, 20:21]
-X21RUE <- table(X21$`X21-RUE`)
-X21LUE <- table(X21$`X21-LUE`)
-barplot(t(cbind(X21RUE, X21LUE)), beside = T, col = c("#69b3a2", "#d9a630"), legend.text = TRUE)
-```
-Por tanto vemos que hay unos 35 pacientes enfermos de Parkinson o que padecen trastorno del sueño REM tanto con puntuaciones de 0 como de 1 sobre 4 para la prueba de temblor de acción o postural. Esto indica que, en general, los pacientes presentan una evolución leve de la enfermedad en éste aspecto. Sin embargo, hay unos 5-10 pacientes que tienen síntomas más graves y que podrían dificultar la vida cotidiana.
-
-\newpage
 Queremos comprobar también si las personas que padecen Parkinson, tienen una puntuación más alta en la escala de UPDRSIII que aquellas que padecen trastorno de la conducta del sueño REM.
 
 ```{r,echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
@@ -589,7 +448,7 @@ ggplot(datos2, aes(x = disease, y = UPDRSIII, fill = disease)) +
   geom_boxplot()
 ```
 
-Y como intuíamos, los pacientes con Parkinson tienen valores más altos en este test que los pacientes que padecen transtorno de sueño (basta fijarse en que la media de los primeros queda por encima del valor límite (?) del otro grupo). Además, también podemos fijarnos en que los pacientes con Párkinson tienen una dispersión considerable, mucho mayor que en el grupo de pacientes con transtorno de sueño. 
+Y como intuíamos, los pacientes con Parkinson tienen valores más altos en este test que los pacientes que padecen transtorno de sueño (basta fijarse en que la media de los primeros queda por encima del valor $1.5\cdot IQR$ del otro grupo). Además, también podemos fijarnos en que los pacientes con Párkinson tienen una dispersión considerable, mucho mayor que en el grupo de pacientes con transtorno de sueño. 
 
 Podríamos pensar que la causa de la alta dispersión de los resultados del test en pacientes de Parkinson se deba a una diferencia muy marcada en la edad de los pacientes seleccionados. Por tanto podemos comprobar cómo se han distribuido los resultados en función de la edad de los pacientes, para ver si hay una tendencia marcada.
 
@@ -603,17 +462,219 @@ p2 = ggplot(datos2, aes(duration, UPDRSIII))+
 p1+p2
 ```
 
-Pero como podemos ver en el gráfico de la izquierda, no parece que exista tal tendencia. Además, en el gráfico de la derecha hemos mirado a ver si el resultado del test se ve afectado por el tiempo total que llevan los pacientes con dicha enfermedad y tampoco parece existir ninguna tendencia ("no se si deberíamos explicar de onde sale la variable Dif pero la había creado solo para esto").
+Pero como podemos ver en el gráfico de la izquierda, no parece que exista tal tendencia. Además, en el gráfico de la derecha hemos mirado a ver si el resultado del test se ve afectado por el tiempo total que llevan los pacientes con dicha enfermedad y tampoco parece existir ninguna relación.
+\newpage 
+Tenemos un conjunto de variables ($X18, \ldots ,X31$) que se corresponden con las diferentes pruebas, la suma de cuyos resultados dará lugar a la variable genérica $UPDRSIII$. La puntuación de cada paciente en ésta escala consiste de la suma de las puntuaciones del paciente en cada una de las pruebas $X18, \ldots ,X31$. Queremos ver, a grandes rasgos, el aspecto que tienen éstas variables. Con éste fin mostramos el gráfico siguiente:
 
+```{r, echo = FALSE, fig.height=7}
+pruebas = data[1:80, 12:38]
+
+longer_pruebas <- pruebas %>%
+  pivot_longer(X18:X31, names_to = "prueba", values_to = "resultado")
+
+ggplot(data = longer_pruebas) +
+  geom_bar(mapping = aes(x = resultado, fill = as_factor(resultado)), stat="count") +
+  facet_wrap(vars(prueba), ncol = 4) +
+  labs(x = "Resultado (En una escala del 0 al 4)", y = "Frecuencia", title = "Resultados de las pruebas \n del test UPDRSIII de todos los pacientes") +
+  theme(plot.title = element_text(family = "serif",              
+                                  face = "bold",                 
+                                  color = 1,                     
+                                  size = 15,                     
+                                  hjust = 0.5,                   
+                                  vjust = 1,                     
+                                  lineheight = 1,                
+                                  margin = margin(0, 0, 0, 0)))+ 
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette="Set2")
+
+```
+
+Los resultados de las pruebas son similares entre ellos por lo que únicamente analizaremos en profundidad la variable $X21$, que consideramos de interés ya que representa el temblor de acción o postural, que consideramos que es una de las variables que más podría influir en la calidad de vida del paciente.
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+X21 = data[1:80, 19:20]
+X21RUE <- table(X21$`X21-RUE`)
+X21LUE <- table(X21$`X21-LUE`)
+barplot(t(cbind(X21RUE, X21LUE)), beside = T, col = c("#69b3a2", "#d9a630"), legend.text = TRUE)
+```
+Por tanto vemos que hay unos 35 pacientes enfermos de Parkinson o que padecen trastorno del sueño REM tanto con puntuaciones de 0 como de 1 sobre 4 para la prueba de temblor de acción o postural. Esto indica que, en general, los pacientes presentan una evolución leve de la enfermedad en éste aspecto. Sin embargo, hay unos 5-10 pacientes que tienen síntomas más graves y que podrían dificultar la vida cotidiana.
+
+Volviendo a los diagramas de barras de las pruebas, vemos también que en su mayoría las puntuaciones de los pacientes en cada prueba se distribuyen decrecientemente, en general, el mayor número de pacientes es valorado con un 0 y el número de pacientes decrece a medida que aumenta la puntuación. Esta distribución se debe a que, como el objetivo del estudio es determinar biomarcadores prematuros de la enfermedad del Parkinson, los pacientes analizados se caracterizan por no estar en un estado avanzado del desarrollo de los síntomas de la enfermedad, e incluso tenemos en la muestra los pacientes con Transtorno del sueño REM, que ya hemos visto que tienden a tener valores inferiores en este test. 
+
+Por tanto, podemos ver si hay un cambio significativo al eliminar a estos pacientes de la muestra.
+
+```{r, echo = FALSE, fig.height=7}
+pruebas = data[1:30, 12:38]
+
+longer_pruebas <- pruebas %>%
+  pivot_longer(X18:X31, names_to = "prueba", values_to = "resultado")
+
+ggplot(data = longer_pruebas) +
+  geom_bar(mapping = aes(x = resultado, fill = as_factor(resultado)), stat="count") +
+  facet_wrap(vars(prueba), ncol = 4) +
+  labs(x = "Resultado (En una escala del 0 al 4)", y = "Frecuencia", title = "Resultados de las pruebas \n del test UPDRSIII de los pacientes con Parkinson") +
+  theme(plot.title = element_text(family = "serif",              
+                                  face = "bold",                 
+                                  color = 1,                     
+                                  size = 15,                     
+                                  hjust = 0.5,                   
+                                  vjust = 1,                     
+                                  lineheight = 1,                
+                                  margin = margin(0, 0, 0, 0)))+ 
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette="Set2")
+```
+
+Y como podemos ver, los resultados tienden a concentrarse menos en el 0 y están mas distribuidos, aunque apenas tenemos presencia de los valores mas elevados del test.
+
+En particular, podemos ver que las variables \textit{X29} y \textit{X23-LUE} presentan un comportamiento diferente cuando consideramos solo al grupo con Parkinson. 
+
+
+```{r, echo = FALSE, warning=FALSE}
+pruebas = data[1:30, 12:38]
+
+p1 = ggplot(pruebas) +
+  geom_bar(mapping = aes(x = pruebas$X29,fill = as_factor(pruebas$X29)), stat="count")+
+  theme(legend.position = "none") +
+    labs(x = "Resultado (En una escala del 0 al 4)", y = "Frecuencia", title = "                           X29")+
+  scale_fill_brewer(palette="Set2")
+
+p2 = ggplot(pruebas) +
+  geom_bar(mapping = aes(x = pruebas$`X23-LUE`,fill = as_factor(pruebas$`X23-LUE`)), stat="count")+
+  theme(legend.position = "none") +
+    labs(x = "Resultado (En una escala del 0 al 4)", title = "                           X23-LUE", y ="")+
+  scale_fill_brewer(palette="Set2")
+
+p1 + p2
+```
+
+Entonces, mirando el primer gráfico vemos que dentro del grupo de pacientes con Parkinson tenemos una gran cantidad de ellos que presentan un valor de 1 en la variable \textit{X29}, que se trata de la prueba que evalua la forma de andar, es decir que la gran mayoría presentan un leve problema al andar. Y en el segundo gráfico vemos que la gran mayoría presentan un valor de almenos 1 en la variable \textit{X23-LUE}, y si recordamos el significado de esta variable, nos está diciendo que la mayoría presentan dificultades a la hora de golpear los dedos índice y pulgar, siendo esta una acción apenas posible de realizar en algunos casos (pacientes con valor 4 en esta variable) 
+
+
+\newpage
+
+Ahora, lo que queremos hacer es, para cada una de las mediciones realizadas a los pacientes durante la lectura de un texto fonéticamente equilibrado y durante la exposición de un monólogo de 90 segundos, comparar los valores obtenidos en función de la variable \textit{disease}, es decir, comparar según si los pacientes son enfermos de Parkinson, de trastorno de conducta del sueño REM o controles sanos. (Representamos gráficamente aquellas variables en que se se aprecie una diferencia fácil de observar).
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, warning=FALSE, fig.align = "center"}
+# plot the distribution of salaries 
+# by rank using jittering
+#install.packages("ggpol")
+
+p1_rst <- ggplot(data, 
+       aes(x = disease, 
+           y = RST, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable RST", 
+       subtitle = "           (Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(100,450)
+
+p2_rst <- ggplot(data, 
+       aes(x = disease, 
+           y = `RST-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable RST", 
+       subtitle = "           (Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(100,450)
+
+p1_rst + p2_rst 
+```
+
+```{r, echo = FALSE, warning=FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
+p1_dpi <- ggplot(data, 
+       aes(x = disease, 
+           y = DPI, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable DPI", 
+       subtitle = "           (Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(50,650)
+
+p2_dpi <- ggplot(data, 
+       aes(x = disease, 
+           y = `DPI-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable DPI", 
+       subtitle = "           (Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(50,650)
+
+p1_dpi + p2_dpi
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center", warning=FALSE}
+p1_dus <- ggplot(data, 
+       aes(x = disease, 
+           y = DUS, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable DUS", 
+       subtitle = "           (Lectura de texto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(5,60)
+
+p2_dus <- ggplot(data, 
+       aes(x = disease, 
+           y = `DUS-M`, 
+           fill = disease)) +
+  geom_boxjitter(color="black",
+                 jitter.color = "darkgrey",
+                 errorbar.draw = TRUE) +
+  labs(title = "           Variable DUS", 
+       subtitle = "           (Monólogo corto)",
+       x = "",
+       y = "") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  ylim(5,60)
+
+p1_dus + p2_dus
+```
+
+En los boxplots anteriores podemos ver que en una primera inspección no muy detallada de las variables, hay 3 en que se observa una diferencia entre los grupos.
+Empezamos analizando la variable $RST$. En el diagrama de cajas podemos ver que el valor medio de ésta variable es mayor para los pacientes sanos que para los enfermos (tanto de Párkinson como de Trastorno de la conducta del sueño REM). Esto ocurre tanto en las mediciones realizadas durante la lectura de un texto fonéticamente estandarizado y las realizadas durante un monólogo corto. Además, los outliers que se observan en los grupos PD y RBD se sitúan prácticamente en su totalidad, por debajo de la línea que marca $Q1-1.5*IRQ$
+
+En el la segunda figura analizamos la variable $DPI$. En éste caso destaca el hecho de que la media para el grupo de los pacientes sanos sea menor que la de los otros dos grupos de pacientes. Además, las observaciones de los grupos PD y RBD están más dispersas, cosa que aumenta el rango inter-cuartílico. Esto se aplica tanto a las mediciones de lectura como a las de monólogo.
+
+Finalmente, en la tercera figura se representa la variable $DUS$. De nuevo, observamos que, en la lectura como en el monólogo, el valor medio de ésta variable es menor para los pacientes sanos que para los pacientes que padecen Párkinson o Trastorno de la conducta del sueño REM. No observamos ninguna diferencia muy notable en cuanto a la dispersión de los datos.  
 \newpage
 A continuación, realizaremos unos diagramas "de telaraña" o "de radar" que nos permitirán ver de forma clara el perfil de cada grupo de pacientes respecto a las pruebas del habla a las que se han sometido. En primer lugar tomaremos los datos recogidos durante la lectura de un texto fonéticamente estandarizado y siguidamente lo haremos para los datos recogidos durante un monólogo breve.
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE, fig.width=10, fig.width=6, fig.align = "center", fig.show = "hold", fig.show='hide', results='hide'}
 #Vamos a hacer un diagrama de telaraña para observar gráficamente la diferéncia entre los 3 tipos de pacientes al realizar las pruebas del habla:
 par(mfrow=c(1,3))
-park <- colMeans(data[data$disease == "PD", 40:63])
-rbd <- colMeans(data[data$disease == "RBD", 40:63])
-control <- colMeans(data[data$disease == "HC", 40:63])
+park <- colMeans(data[data$disease == "PD", 39:62])
+rbd <- colMeans(data[data$disease == "RBD", 39:62])
+control <- colMeans(data[data$disease == "HC", 39:62])
 
 spider = tibble(park = park,
                 rdb = rbd,
@@ -693,53 +754,6 @@ Por otro lado, los pacientes de Parkinson se caracteriazan porque el valor de $L
 De ésta forma hemos encontrado cómo las variables recogidas en éstas dos pruebas pueden caracterizar a los diferentes grupos de pacientes y éstas relaciones podrían tenerse en cuenta a la hora de evaluar el riesgo de un paciente de padecer Parkinson.
 
 
-\newpage
-
-Estudiaremos también si aquellos pacientes toman algún tipo de medicamento presentan un menor valor en la escala UPDRS III, es decir [...]
-```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE}
-#install.packages("ggridges")
-
-#No distinguiremos entre medicamentos específicos y reduciremos los niveles de los
-#factores únicamente a SÍ/NO 
-
-data_nomed <- data
-data_nomed <- mutate(data_nomed, benzodiazepine = fct_collapse(benzodiazepine,
-    Yes = levels(data_nomed$benzodiazepine)[2:4]))
-data_nomed <- mutate(data_nomed, antidepressant = fct_collapse(antidepressant,
-    Yes = levels(data_nomed$antidepressant)[2:10]))
-
-p1_nomed <- ggplot(data_nomed[1:80, ], 
-       aes(x = as.numeric(UPDRSIII), 
-           y = antidepressant, 
-           fill = antidepressant)) +
-  geom_density_ridges() + 
-  theme_ridges() +
-  labs(title = "Valor en la escala UPDRS III respecto a la medicación", 
-       x = "Valor escala UPDRS III",
-       y = "Antidepresivos") +
-  theme(legend.position = "none")
-
-p2_nomed <- ggplot(data_nomed[1:80, ], 
-       aes(x = as.numeric(UPDRSIII), 
-           y = benzodiazepine, 
-           fill = benzodiazepine)) +
-  geom_density_ridges() + 
-  theme_ridges() +
-  labs(x = "Valor escala UPDRS III",
-       y = "Benzodiazepinas") +
-  theme(legend.position = "none")
-
-p1_nomed+p2_nomed
-```
-\textbf{[...] (no sé si sirve de algo la verdad)}
-
-```{r, echo=FALSE, fig.height=3, message=FALSE}
-ggplot(data) +
-  geom_smooth(mapping = aes(x = age, y = DPI, color = disease), se = FALSE)
-```
-
-No se que quiere decir pero parece que solo sube pa los enfermitos
-\newpage
 
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
 plotdata <- data2[data2$sex == "BOTH",]
@@ -793,7 +807,7 @@ ggplot(plotdata2_wide[2:6,],
 [NO HAY MANERA DE QUE SALGA ALGO DECENTE]
 
 ```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE, results=FALSE, fig.height=4}
-data_speech <- data[,40:63]
+data_speech <- data[,39:62]
 data_speech <-lapply(data_speech,as.numeric)
 data_speech_scaled <- scale(as_tibble(data_speech))
 
@@ -838,7 +852,7 @@ table(hkmeans_cluster2$cluster, data[hkmeans_cluster$cluster != 2,]$disease, dnn
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align = "center", results=FALSE, fig.height=4}
-data_speech2 <- data[,c(3,4,40:63)]
+data_speech2 <- data[,c(3,4,39:62)]
 data_speech2$gender = factor(data_speech2$gender, levels = c("F", "M"), labels = c(0,1))
 data_speech2 <-lapply(data_speech2,as.numeric)
 data_speech2_scaled <- scale(as_tibble(data_speech2))
