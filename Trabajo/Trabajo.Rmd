@@ -299,33 +299,33 @@ data$antiparkinsonian = as_factor(data$antiparkinsonian)
 data$antipsychotic = as_factor(data$antipsychotic)
 data$benzodiazepine = as_factor(data$benzodiazepine)
 data$HY_scale = as_factor(data$HY_scale)
-data$X18 = as_factor(data$X18)
-data$X19 = as_factor(data$X19)
-data$`X20-head` = as_factor(data$`X20-head`)
-data$`X20-RUE` = as_factor(data$`X20-RUE`)
-data$`X20-LUE` = as_factor(data$`X20-LUE`)
-data$`X20-RLE` = as_factor(data$`X20-RLE`)
-data$`X20-LLE` = as_factor(data$`X20-LLE`)
-data$`X21-RUE` = as_factor(data$`X21-RUE`)
-data$`X21-LUE` = as_factor(data$`X21-LUE`)
-data$`X22-neck` = as_factor(data$`X22-neck`)
-data$`X22-RUE` = as_factor(data$`X22-RUE`)
-data$`X22-LUE` = as_factor(data$`X22-LUE`)
-data$`X22-RLE` = as_factor(data$`X22-RLE`)
-data$`X22-LLE` = as_factor(data$`X22-LLE`)
-data$`X23-RUE` = as_factor(data$`X23-RUE`)
-data$`X23-LUE` = as_factor(data$`X23-LUE`)
-data$`X24-RUE` = as_factor(data$`X24-RUE`)
-data$`X24-LUE` = as_factor(data$`X24-LUE`)
-data$`X25-RUE` = as_factor(data$`X25-RUE`)
-data$`X25-LUE` = as_factor(data$`X25-LUE`)
-data$`X26-RLE` = as_factor(data$`X26-RLE`)
-data$`X26-LLE` = as_factor(data$`X26-LLE`)
-data$X27 = as_factor(data$X27)
-data$X28 = as_factor(data$X28)
-data$X29 = as_factor(data$X29)
-data$X30 = as_factor(data$X30)
-data$X31 = as_factor(data$X31)
+data$X18 = as.numeric(data$X18)
+data$X19 = as.numeric(data$X19)
+data$`X20-head` = as.numeric(data$`X20-head`)
+data$`X20-RUE` = as.numeric(data$`X20-RUE`)
+data$`X20-LUE` = as.numeric(data$`X20-LUE`)
+data$`X20-RLE` = as.numeric(data$`X20-RLE`)
+data$`X20-LLE` = as.numeric(data$`X20-LLE`)
+data$`X21-RUE` = as.numeric(data$`X21-RUE`)
+data$`X21-LUE` = as.numeric(data$`X21-LUE`)
+data$`X22-neck` = as.numeric(data$`X22-neck`)
+data$`X22-RUE` = as.numeric(data$`X22-RUE`)
+data$`X22-LUE` = as.numeric(data$`X22-LUE`)
+data$`X22-RLE` = as.numeric(data$`X22-RLE`)
+data$`X22-LLE` = as.numeric(data$`X22-LLE`)
+data$`X23-RUE` = as.numeric(data$`X23-RUE`)
+data$`X23-LUE` = as.numeric(data$`X23-LUE`)
+data$`X24-RUE` = as.numeric(data$`X24-RUE`)
+data$`X24-LUE` = as.numeric(data$`X24-LUE`)
+data$`X25-RUE` = as.numeric(data$`X25-RUE`)
+data$`X25-LUE` = as.numeric(data$`X25-LUE`)
+data$`X26-RLE` = as.numeric(data$`X26-RLE`)
+data$`X26-LLE` = as.numeric(data$`X26-LLE`)
+data$X27 = as.numeric(data$X27)
+data$X28 = as.numeric(data$X28)
+data$X29 = as.numeric(data$X29)
+data$X30 = as.numeric(data$X30)
+data$X31 = as.numeric(data$X31)
 
 #Eliminamos los guiones e introducimos NA's
 levels(data$history)[3] = NA
@@ -551,6 +551,35 @@ Por lo tanto, en el primer gráfico vemos que, en lo que respecta al avance de l
 Por otra parte, en el segundo gráfico vemos, para cada valor en la escala H&Y, la distribución de las edades de los pacientes afectados. Se aprecia que los pacientes que están en los valores 2 y 2.5 de la escala H&Y tienen una distribución de edades muy parecida. Sin embargo, observamos claramente que los pacientes que están en el valor 1.5, es decir, los de síntomas más leves, tienen una edad significativamente más baja que los otros dos grupos. Así, constatamos que los pacientes más jóvenes presentan una sintomatología más leve.
 
 \newpage
+Tenemos un conjunto de variables ($X18, \ldots ,X31$) que se corresponden con las diferentes pruebas, la suma de cuyos resultados dará lugar a la variable genérica $UPDRSIII$. La puntuación de cada paciente en ésta escala consiste de la suma de las puntuaciones del paciente en cada una de las pruebas $X18, \ldots ,X31$. Queremos ver, a grandes rasgos, el aspecto que tienen éstas variables. Con éste fin mostramos el gráfico siguiente:
+```{r, echo = FALSE, fig.height=7}
+pruebas = data[1:80, 13:39]
+
+longer_pruebas <- pruebas %>%
+  pivot_longer(X18:X31, names_to = "prueba", values_to = "resultado")
+
+ggplot(data = longer_pruebas) +
+  geom_bar(mapping = aes(x = resultado, fill = as_factor(resultado)), stat="count") +
+  facet_wrap(vars(prueba), ncol = 4) +
+  labs(x = "Resultado (En una escala del 0 al 4)", y = "Frecuencia") +
+  theme(legend.position = "none") +
+  scale_fill_brewer(palette="Set2")
+
+```
+
+Vemos que en su mayoría las puntuaciones de los pacientes en cada prueba se distribuyen decrecientemente, en general, el mayor número de pacientes es valorado con un 0 y el número de pacientes decrece a medida que aumenta la puntuación. Esta distribución se debe a que, como el objetivo del estudio es determinar biomarcadores prematuros de la enfermedad del Parkinson, los pacientes analizados se caracterizan por no estar en un estado avanzado del desarrollo de los síntomas de la enfermedad. 
+
+Los resultados de las pruebas son similares entre ellos por lo que únicamente analizaremos en profundidad la variable $X21$, que consideramos de interés ya que representa el temblor de acción o postural, que consideramos que es una de las variables que más podría influir en la calidad de vida del paciente.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE}
+X21 = data[1:80, 20:21]
+X21RUE <- table(X21$`X21-RUE`)
+X21LUE <- table(X21$`X21-LUE`)
+barplot(t(cbind(X21RUE, X21LUE)), beside = T, col = c("#69b3a2", "#d9a630"), legend.text = TRUE)
+```
+Por tanto vemos que hay unos 35 pacientes enfermos de Parkinson o que padecen trastorno del sueño REM tanto con puntuaciones de 0 como de 1 sobre 4 para la prueba de temblor de acción o postural. Esto indica que, en general, los pacientes presentan una evolución leve de la enfermedad en éste aspecto. Sin embargo, hay unos 5-10 pacientes que tienen síntomas más graves y que podrían dificultar la vida cotidiana.
+
+\newpage
 Queremos comprobar también si las personas que padecen Parkinson, tienen una puntuación más alta en la escala de UPDRSIII que aquellas que padecen trastorno de la conducta del sueño REM.
 
 ```{r,echo = FALSE, fig.show = "hold", fig.height = 2.5, fig.align = "center"}
@@ -576,12 +605,6 @@ p1+p2
 
 Pero como podemos ver en el gráfico de la izquierda, no parece que exista tal tendencia. Además, en el gráfico de la derecha hemos mirado a ver si el resultado del test se ve afectado por el tiempo total que llevan los pacientes con dicha enfermedad y tampoco parece existir ninguna tendencia ("no se si deberíamos explicar de onde sale la variable Dif pero la había creado solo para esto").
 
-```{r, echo=FALSE, fig.height=3, message=FALSE}
-ggplot(data) +
-  geom_smooth(mapping = aes(x = age, y = DPI, color = disease), se = FALSE)
-```
-
-No se que quiere decir pero parece que solo sube pa los enfermitos
 \newpage
 A continuación, realizaremos unos diagramas "de telaraña" o "de radar" que nos permitirán ver de forma clara el perfil de cada grupo de pacientes respecto a las pruebas del habla a las que se han sometido. En primer lugar tomaremos los datos recogidos durante la lectura de un texto fonéticamente estandarizado y siguidamente lo haremos para los datos recogidos durante un monólogo breve.
 
@@ -709,6 +732,13 @@ p2_nomed <- ggplot(data_nomed[1:80, ],
 p1_nomed+p2_nomed
 ```
 \textbf{[...] (no sé si sirve de algo la verdad)}
+
+```{r, echo=FALSE, fig.height=3, message=FALSE}
+ggplot(data) +
+  geom_smooth(mapping = aes(x = age, y = DPI, color = disease), se = FALSE)
+```
+
+No se que quiere decir pero parece que solo sube pa los enfermitos
 \newpage
 
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
@@ -726,6 +756,7 @@ ggplot(plotdata, aes(x=year, y = incidence_rate)) +
        x = "Año",
        y = "Ratio de Incidencia")
 ```
+\newpage
 ```{r, echo = FALSE, fig.show = "hold", fig.height = 3, fig.align = "center", message = FALSE, warning=FALSE}
 # subset data
 plotdata2 <- filter(data2,
@@ -755,13 +786,13 @@ ggplot(plotdata2_wide[2:6,],
        y = "Región")
 ```
 
-
+\newpage
 
 # Clustering en "grupos de riesgo":
 
 [NO HAY MANERA DE QUE SALGA ALGO DECENTE]
 
-```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE}
+```{r, echo = FALSE, fig.align = "center", message = FALSE, warning=FALSE, results=FALSE, fig.height=4}
 data_speech <- data[,40:63]
 data_speech <-lapply(data_speech,as.numeric)
 data_speech_scaled <- scale(as_tibble(data_speech))
@@ -793,20 +824,44 @@ fviz_cluster(object = hkmeans_cluster2, pallete = "jco", repel = TRUE) +
 
 table(hkmeans_cluster2$cluster, data[hkmeans_cluster$cluster != 2,]$disease, dnn = list("clusters", "enfermedad padecida"))
 
-#install.packages("vegan")
-library(vegan)
-bc.dist <- vegdist (as_tibble(data_speech), method = 'bray')
-#bc.dist
-#print (bc.dist, diag = TRUE)
-clust <- agnes (sqrt (bc.dist), method = 'ward')
-plot (clust, which.plot = 2)
-groups <- cutree (clust, k = 4)
-#groups
-#table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
-clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
+##install.packages("vegan")
+#library(vegan)
+#bc.dist <- vegdist (as_tibble(data_speech), method = 'bray')
+##bc.dist
+##print (bc.dist, diag = TRUE)
+#clust <- agnes (sqrt (bc.dist), method = 'ward')
+#plot (clust, which.plot = 2)
+#groups <- cutree (clust, k = 4)
+##groups
+##table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
+#clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, #main = "Clustering")
 ```
 
-```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.align = "center", results=FALSE, fig.height=4}
+data_speech2 <- data[,c(3,4,40:63)]
+data_speech2$gender = factor(data_speech2$gender, levels = c("F", "M"), labels = c(0,1))
+data_speech2 <-lapply(data_speech2,as.numeric)
+data_speech2_scaled <- scale(as_tibble(data_speech2))
+
+hkmeans_cluster3 <- hkmeans(x = data_speech2_scaled, hc.metric = "binary",
+ hc.method = "complete", k = 4)
+fviz_cluster(object = hkmeans_cluster3, pallete = "jco", repel = TRUE) +
+ theme_bw() + labs(title = "Hierarchical k-means Cluster plot")
+
+table(hkmeans_cluster3$cluster, data$disease, dnn = list("clusters", "enfermedad padecida"))
+
+data_speech2_scaled <- data_speech2_scaled[hkmeans_cluster3$cluster != 2,]
+#AQUÍ HEMOS QUITADO LOS DATOS DEL CLUSTER SEPARADO QUE SON "OUTLIERS"
+
+hkmeans_cluster4 <- hkmeans(x = data_speech2_scaled, hc.metric = "binary",
+ hc.method = "complete", k = 3)
+fviz_cluster(object = hkmeans_cluster4, pallete = "jco", repel = TRUE) +
+ theme_bw() + labs(title = "Hierarchical k-means Cluster plot")
+
+table(hkmeans_cluster4$cluster, data[hkmeans_cluster3$cluster != 2,]$disease, dnn = list("clusters", "enfermedad padecida"))
+```
+
+```{r, echo = FALSE, fig.show = "hold", fig.align = "center", message = FALSE, warning=FALSE , results=FALSE, fig.height=4}
 #install.packages("pheatmap")
 library("pheatmap")
 pheatmap(as_tibble(data_speech), scale = "row")
@@ -835,5 +890,11 @@ groups
 table(groups, data$disease, dnn = list("clusters", "enfermedad padecida"))
 clusplot(as_tibble(data_speech), groups, lines = 0, shade = TRUE, color = TRUE, labels = 1, plotchar = FALSE, span = TRUE, main = "Clustering")
 ```
+
+
+
+
+
+
 
 
